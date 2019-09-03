@@ -1,0 +1,178 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: HCP AC
+VAL_TABLE_ Vsta_Level 3 "Level3" 2 "Level2" 1 "Level1" 0 "default" ;
+VAL_TABLE_ Vsta_ErrorSta 1 "error" 0 "normal" ;
+VAL_TABLE_ Vsta_Fdk 1 "open" 0 "close" ;
+VAL_TABLE_ Vsta_Valid 1 "Valid" 0 "Invalid" ;
+
+
+BO_ 904 HCP_MSG_ADD: 8 HCP
+ SG_ HCP_Panel : 7|3@0+ (1,0) [0|7] ""  AC
+ SG_ HCP_PM25AutoCleanSwitch : 0|1@0+ (1,0) [0|1] ""  AC
+ SG_ HCP_FragranceType : 12|3@0+ (1,0) [0|7] ""  AC
+ SG_ HCP_FragranceMode : 15|3@0+ (1,0) [0|7] ""  AC
+ SG_ HCP_FragranceConcentration : 9|2@0+ (1,0) [0|3] ""  AC
+ SG_ HCP_CO2AutoMonitorSwitch : 1|1@0+ (1,0) [0|1] ""  AC
+ SG_ HCP_AutoMistSwitch : 2|1@0+ (1,0) [0|1] ""  AC
+ SG_ HCP_AutoFragranceSwitch : 3|1@0+ (1,0) [0|1] ""  AC
+
+BO_ 853 AC_MSG_ADD: 8 AC
+ SG_ AC_TempSensorValue : 55|8@0+ (1,0) [0|255] ""  HCP
+ SG_ AC_TempDewPoint : 2|11@0+ (1,0) [0|2047] ""  HCP
+ SG_ AC_PM25Warning : 7|1@0+ (1,0) [0|1] ""  HCP
+ SG_ AC_PM25AutoCleanFdk : 39|1@0+ (1,0) [0|1] ""  HCP
+ SG_ AC_OutsidePM25Value : 33|10@0+ (1,0) [0|1023] ""  HCP
+ SG_ AC_OutsidePM25ValidSta : 34|1@0+ (1,0) [0|1] ""  HCP
+ SG_ AC_InsidePM25Value : 17|10@0+ (1,0) [0|1023] ""  HCP
+ SG_ AC_InsidePM25ValidSta : 18|1@0+ (1,0) [0|1] ""  HCP
+ SG_ AC_HumidSensorValue : 63|8@0+ (1,0) [0|255] ""  HCP
+ SG_ AC_Humid_Temp_Error : 5|1@0+ (1,0) [0|1] ""  HCP
+ SG_ AC_CO2Warning : 6|1@0+ (1,0) [0|1] ""  HCP
+ SG_ AC_CO2ValidSta : 23|1@0+ (1,0) [0|1] ""  HCP
+ SG_ AC_CO2Level : 22|2@0+ (1,0) [0|3] ""  HCP
+ SG_ AC_CO2AutoMonitorFdk : 38|1@0+ (1,0) [0|1] ""  HCP
+ SG_ AC_AutoMistFdk : 37|1@0+ (1,0) [0|1] ""  HCP
+ SG_ AC_AutoFragranceFdk : 36|1@0+ (1,0) [0|1] ""  HCP
+
+
+
+CM_ SG_ 904 HCP_Panel "画面选择";
+CM_ SG_ 904 HCP_PM25AutoCleanSwitch "自动净化开关状态";
+CM_ SG_ 904 HCP_FragranceType "香氛类型";
+CM_ SG_ 904 HCP_FragranceMode "香氛模式";
+CM_ SG_ 904 HCP_FragranceConcentration "香氛浓度";
+CM_ SG_ 904 HCP_CO2AutoMonitorSwitch "自动检测开关状态";
+CM_ SG_ 904 HCP_AutoMistSwitch "自动除雾开关状态";
+CM_ SG_ 904 HCP_AutoFragranceSwitch "智能氛香功能开关";
+CM_ SG_ 853 AC_TempSensorValue "温度值（预留）";
+CM_ SG_ 853 AC_TempDewPoint "雾点温度(预留)";
+CM_ SG_ 853 AC_PM25Warning "PM2.5报警标志";
+CM_ SG_ 853 AC_PM25AutoCleanFdk "自动净化功能";
+CM_ SG_ 853 AC_OutsidePM25Value "车内PM2.5值";
+CM_ SG_ 853 AC_OutsidePM25ValidSta "车外PM2.5值有效标志";
+CM_ SG_ 853 AC_InsidePM25Value "车外PM2.5值";
+CM_ SG_ 853 AC_InsidePM25ValidSta "车外PM2.5值有效标志";
+CM_ SG_ 853 AC_HumidSensorValue "湿度值";
+CM_ SG_ 853 AC_Humid_Temp_Error "传感器错误状态";
+CM_ SG_ 853 AC_CO2Warning "CO2报警标志";
+CM_ SG_ 853 AC_CO2ValidSta "C02浓度有效状态";
+CM_ SG_ 853 AC_CO2Level "CO2浓度等级";
+CM_ SG_ 853 AC_CO2AutoMonitorFdk "CO2自动检测功能";
+CM_ SG_ 853 AC_AutoMistFdk "自动除雾功能";
+CM_ SG_ 853 AC_AutoFragranceFdk "智能氛香功能";
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 2147483647;
+BA_DEF_ SG_  "GenSigSendType" ENUM  "Cyclic","OnWrite","OnWriteWithRepetition","OnChange","OnChangeWithRepetition","IfActive","IfActiveWithRepetition","NoSigSendType","OnChangeAndIfActive","OnChangeAndIfActiveWithRepetition","vector_leerstring";
+BA_DEF_ SG_  "GenSigStartValue" INT 0 2147483647;
+BA_DEF_ SG_  "GenSigTimeoutValue" INT 0 2147483647;
+BA_DEF_ BO_  "DiagRequest" ENUM  "no","yes";
+BA_DEF_ BO_  "DiagResponse" ENUM  "no","yes";
+BA_DEF_ BO_  "DiagState" ENUM  "no","yes";
+BA_DEF_ BO_  "DiagUudtResponse" ENUM  "false","true";
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 65535;
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 65535;
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 65535;
+BA_DEF_ BO_  "GenMsgFastOnStart" INT 0 65535;
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "no","yes";
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 999;
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "Cyclic","NotUsed","NotUsed","NotUsed","NotUsed","NotUsed","NotUsed","IfActive","NoMsgSendType";
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 65535;
+BA_DEF_ BO_  "TpTxIndex" INT 0 255;
+BA_DEF_ BU_  "ILUsed" ENUM  "no","yes";
+BA_DEF_  "ILTxTimeout" INT 0 65535;
+BA_DEF_  "Manufacturer" STRING ;
+BA_DEF_  "DBName" STRING ;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ BU_  "ECU" STRING ;
+BA_DEF_ BU_  "CANoeJitterMax" INT 0 0;
+BA_DEF_ BU_  "CANoeJitterMin" INT 0 0;
+BA_DEF_ BU_  "CANoeDrift" INT 0 0;
+BA_DEF_ BU_  "CANoeStartDelay" INT 0 0;
+BA_DEF_REL_ BU_SG_REL_  "GenSigSuprvRespSubValue" INT 0 65535;
+BA_DEF_REL_ BU_SG_REL_  "GenSigTimeoutTime" INT 0 65535;
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "GenSigSendType" "Cyclic";
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenSigTimeoutValue" 0;
+BA_DEF_DEF_  "DiagRequest" "no";
+BA_DEF_DEF_  "DiagResponse" "no";
+BA_DEF_DEF_  "DiagState" "no";
+BA_DEF_DEF_  "DiagUudtResponse" "false";
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 0;
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "GenMsgFastOnStart" 0;
+BA_DEF_DEF_  "GenMsgILSupport" "no";
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 0;
+BA_DEF_DEF_  "GenMsgSendType" "Cyclic";
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "TpTxIndex" 0;
+BA_DEF_DEF_  "ILUsed" "no";
+BA_DEF_DEF_  "ILTxTimeout" 0;
+BA_DEF_DEF_  "Manufacturer" "Vector";
+BA_DEF_DEF_  "DBName" "";
+BA_DEF_DEF_  "BusType" "";
+BA_DEF_DEF_  "NodeLayerModules" "";
+BA_DEF_DEF_  "ECU" "";
+BA_DEF_DEF_  "CANoeJitterMax" 0;
+BA_DEF_DEF_  "CANoeJitterMin" 0;
+BA_DEF_DEF_  "CANoeDrift" 0;
+BA_DEF_DEF_  "CANoeStartDelay" 0;
+BA_DEF_DEF_REL_ "GenSigSuprvRespSubValue" 0;
+BA_DEF_DEF_REL_ "GenSigTimeoutTime" 0;
+BA_ "DBName" "BodyCANHCP";
+BA_ "GenMsgCycleTime" BO_ 904 50;
+BA_ "GenMsgStartDelayTime" BO_ 853 0;
+BA_ "GenMsgCycleTime" BO_ 853 50;
+VAL_ 904 HCP_Panel 4 "Smart sweet atmosphere" 3 "Automatic mist" 2 "vital signs" 1 "Automatic cleaning" 0 "Select None" ;
+VAL_ 904 HCP_PM25AutoCleanSwitch 1 "open" 0 "close" ;
+VAL_ 904 HCP_FragranceConcentration 3 "Level3" 2 "Level2" 1 "Level1" 0 "default" ;
+VAL_ 904 HCP_CO2AutoMonitorSwitch 1 "open" 0 "close" ;
+VAL_ 904 HCP_AutoMistSwitch 1 "open" 0 "close" ;
+VAL_ 904 HCP_AutoFragranceSwitch 1 "open" 0 "close" ;
+VAL_ 853 AC_PM25Warning 1 "Valid" 0 "Invalid" ;
+VAL_ 853 AC_PM25AutoCleanFdk 1 "open" 0 "close" ;
+VAL_ 853 AC_OutsidePM25ValidSta 1 "Valid" 0 "Invalid" ;
+VAL_ 853 AC_InsidePM25ValidSta 1 "Valid" 0 "Invalid" ;
+VAL_ 853 AC_Humid_Temp_Error 1 "error" 0 "normal" ;
+VAL_ 853 AC_CO2Warning 1 "Valid" 0 "Invalid" ;
+VAL_ 853 AC_CO2ValidSta 1 "Valid" 0 "Invalid" ;
+VAL_ 853 AC_CO2Level 3 "Level3" 2 "Level2" 1 "Level1" 0 "default" ;
+VAL_ 853 AC_CO2AutoMonitorFdk 1 "open" 0 "close" ;
+VAL_ 853 AC_AutoMistFdk 1 "open" 0 "close" ;
+VAL_ 853 AC_AutoFragranceFdk 1 "open" 0 "close" ;
+
