@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">CheryAC</string>
+    <string name="welcome_mode">迎宾模式</string>
+    <string name="long_distance_mode">长途模式</string>
+    <string name="relax_mode">放松模式</string>
+    <string name="fragrance_open">香氛开启</string>
+    <string name="nature">大自然</string>
+    <string name="flower_fruit">花果香</string>
+    <string name="lavender">薰衣草</string>
+    <string name="fragrance_concentration_high">高</string>
+    <string name="fragrance_concentration_middle">中</string>
+    <string name="fragrance_concentration_low">低</string>
+    <string name="fragrance_concentration">浓度</string>
+    <string name="automatic_monitor">自动监测</string>
+    <string name="carbon_dioxide_concentration">CO2浓度</string>
+    <string name="vital_signs_normal">生命体征已经恢复正常</string>
+    <string name="open_ventilation_system">已开启通风系统</string>
+    <string name="open_car_camera">已开启车内摄像头</string>
+    <string name="inform_owner">已APP通知车主</string>
+    <string name="send_car_picture">已发送车内照片</string>
+    <string name="forty_percent">40%</string>
+    <string name="fog_probability">起雾概率</string>
+    <string name="automatic_defog">自动除雾</string>
+    <string name="start_automatic_defog">即将进行自动除雾</string>
+    <string name="defog_completed">除雾已完成</string>
 </resources>

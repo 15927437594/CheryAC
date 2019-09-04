@@ -14,6 +14,7 @@ import android.view.KeyEvent;
 public class StatusManager {
     private static final String TAG = StatusManager.class.getSimpleName();
     private static volatile StatusManager sInstance = null;
+    private DriveMode mDriveMode = DriveMode.MODE_WELCOME;
 
     private StatusManager() {
     }
@@ -73,5 +74,17 @@ public class StatusManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private enum DriveMode {
+        MODE_WELCOME, MODE_LONG_DISTANCE, MODE_RELAX
+    }
+
+    public DriveMode getDriveMode() {
+        return mDriveMode;
+    }
+
+    public void setDriveMode(DriveMode mode) {
+        mDriveMode = mode;
     }
 }

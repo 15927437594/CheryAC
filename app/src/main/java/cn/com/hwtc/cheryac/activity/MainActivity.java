@@ -5,13 +5,13 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.tmall.ultraviewpager.UltraViewPager;
-import com.tmall.ultraviewpager.transformer.UltraScaleTransformer;
 
 import java.util.ArrayList;
 
 import cn.com.hwtc.cheryac.R;
 import cn.com.hwtc.cheryac.adapter.UltraPagerAdapter;
 import cn.com.hwtc.cheryac.manager.StatusManager;
+import cn.com.hwtc.cheryac.manager.UltraScaleTransformer;
 
 public class MainActivity extends BaseActivity implements UltraPagerAdapter.OnPositionClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -52,7 +52,9 @@ public class MainActivity extends BaseActivity implements UltraPagerAdapter.OnPo
         ultraViewPager.setRatio(2.0f);
         ultraViewPager.setMaxHeight(720);
         ultraViewPager.setAutoMeasureHeight(true);
-        ultraViewPager.setPageTransformer(false, new UltraScaleTransformer());
+        UltraScaleTransformer ultraScaleTransformer = new UltraScaleTransformer(0.6f);
+        ultraViewPager.setPageTransformer(false, ultraScaleTransformer);
+//        ultraViewPager.setInfiniteLoop(true);
     }
 
     private void createClsList() {
