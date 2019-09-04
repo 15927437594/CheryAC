@@ -2,6 +2,118 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@drawable/bg_automatic_defogging">
+
+
+    <ImageView
+        android:id="@+id/iv_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/widget_size_20"
+        android:layout_marginBottom="@dimen/widget_size_15"
+        android:src="@drawable/icon_home" />
+
+    <RelativeLayout
+        android:id="@+id/rl_fog_probability"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/widget_size_80"
+        android:layout_marginTop="@dimen/widget_size_110"
+        android:background="@drawable/icon_fog_probability">
+
+        <TextView
+            android:id="@+id/tv_fog_probability"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/forty_percent"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_30" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_fog_probability"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/widget_size_60"
+            android:text="@string/fog_probability"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_20" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_fog_probability"
+        android:layout_marginStart="@dimen/widget_size_90"
+        android:layout_marginTop="@dimen/widget_size_40">
+
+        <CheckBox
+            android:id="@+id/cb_switch_automatic_defog"
+            style="@style/CustomCheckBoxTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/cb_switch_automatic_defog"
+            android:text="@string/automatic_defog"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_20" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_automatic_defog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/widget_size_80">
+
+        <ImageView
+            android:id="@+id/iv_car_model"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_car_model" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_car_model"
+            android:layout_centerHorizontal="true"
+            android:text="@string/start_automatic_defog"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_20" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/widget_size_120"
+        android:layout_marginTop="@dimen/widget_size_150"
+        android:layout_toEndOf="@+id/rl_automatic_defog">
+
+        <ImageView
+            android:id="@+id/iv_defog_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon_ok_large" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_defog_ok"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/widget_size_30"
+            android:text="@string/defog_completed"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_20" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
