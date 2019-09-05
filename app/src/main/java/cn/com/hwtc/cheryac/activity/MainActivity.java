@@ -1,6 +1,5 @@
 package cn.com.hwtc.cheryac.activity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -10,38 +9,26 @@ import java.util.ArrayList;
 
 import cn.com.hwtc.cheryac.R;
 import cn.com.hwtc.cheryac.adapter.UltraPagerAdapter;
-import cn.com.hwtc.cheryac.manager.StatusManager;
 import cn.com.hwtc.cheryac.manager.UltraScaleTransformer;
 
 public class MainActivity extends BaseActivity implements UltraPagerAdapter.OnPositionClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
-    private Context mContext = null;
     private UltraViewPager ultraViewPager;
-    private StatusManager mStatusManager;
     private ArrayList<String> clsNameList;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initView();
-        initEvent();
+    protected int createLayout(Bundle saveInstanceState) {
+        return R.layout.activity_main;
     }
 
     @Override
     protected void initView() {
-        super.initView();
         ultraViewPager = findViewById(R.id.ultra_viewpager);
     }
 
     @Override
     protected void initEvent() {
-        super.initEvent();
-        if (mContext == null) {
-            mContext = getApplicationContext();
-        }
         createClsList();
-        mStatusManager = StatusManager.getInstance();
         UltraPagerAdapter ultraPagerAdapter = new UltraPagerAdapter(mContext);
         ultraPagerAdapter.setOnPositionClickListener(this);
         ultraViewPager.setAdapter(ultraPagerAdapter);
@@ -54,7 +41,7 @@ public class MainActivity extends BaseActivity implements UltraPagerAdapter.OnPo
         ultraViewPager.setAutoMeasureHeight(true);
         UltraScaleTransformer ultraScaleTransformer = new UltraScaleTransformer(0.6f);
         ultraViewPager.setPageTransformer(false, ultraScaleTransformer);
-//        ultraViewPager.setInfiniteLoop(true);
+        //ultraViewPager.setInfiniteLoop(true);//设置无限循环模式
     }
 
     private void createClsList() {
@@ -71,5 +58,8 @@ public class MainActivity extends BaseActivity implements UltraPagerAdapter.OnPo
         String clsName = clsNameList.get(position);
         Log.d(TAG, "clsName -> " + clsName);
         mStatusManager.startActivity(mContext, "cn.com.hwtc.cheryac", clsName);
+        byte[] bytes = new byte[]{0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0};
+        mStatusManager.sendMsg(mContext, (byte) 0x3F, bytes);
     }
+
 }

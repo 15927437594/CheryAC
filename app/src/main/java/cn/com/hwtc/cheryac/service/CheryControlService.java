@@ -82,7 +82,36 @@ public class CheryControlService extends Service {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (MCUHW_PROTOCOL_3E_CHERY_AC1_ACTION.equals(action)) {
+                byte[] data = intent.getByteArrayExtra(EXTRA_NAME_PROTOCOL);
+                if (data == null) {
+                    Log.w(TAG, "data == null");
+                    return;
+                }
 
+                if (data.length < 22) {
+                    Log.w(TAG, "data.length < 2, this data is invalid");
+                    return;
+                }
+
+                mStatusManager.setPm25Ref(data[0]);
+                mStatusManager.setPm25Warning(data[2]);
+                mStatusManager.setPm25AutoCleanFdk(data[3]);
+                mStatusManager.setOutsidePm25(data[4] << 8 | data[5]);
+                mStatusManager.setOutsidePm25Valid(data[6]);
+                mStatusManager.setInsidePm25(data[7] << 8 | data[8]);
+                mStatusManager.setInsidePm25Valid(data[9]);
+                mStatusManager.setHumidSensor(data[10]);
+                mStatusManager.setHumidTempError(data[11]);
+                mStatusManager.setCarbonDioxideWarning(data[12]);
+                mStatusManager.setCarbonDioxideValid(data[13]);
+                mStatusManager.setCarbonDioxideLevel(data[14]);
+                mStatusManager.setCarbonDioxideAutoMonitorFdk(data[15]);
+                mStatusManager.setAutoMistFdk(data[16]);
+                mStatusManager.setAutoFragranceFdk(data[17]);
+                mStatusManager.setInformMaster(data[18]);
+                mStatusManager.setSendInsidePhoto(data[19]);
+                mStatusManager.setOpenInsideCamera(data[20]);
+                mStatusManager.setOpenVenSystem(data[21]);
             }
         }
     }
