@@ -1,6 +1,5 @@
 package cn.com.hwtc.cheryac.activity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,10 +8,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 
-import androidx.annotation.Nullable;
-
 import cn.com.hwtc.cheryac.R;
-import cn.com.hwtc.cheryac.manager.StatusManager;
 
 /**
  * user: Created by jid on 2019/9/2.
@@ -21,25 +17,19 @@ import cn.com.hwtc.cheryac.manager.StatusManager;
  */
 public class SmartFragranceActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     private static final String TAG = SmartFragranceActivity.class.getSimpleName();
-    private Context mContext;
     private ImageView ivHome;
-    private StatusManager mStatusManager;
     private CheckBox cbSwitchFragrance;
     private RadioButton rbPerfumeBottleFirst;
     private RadioButton rbPerfumeBottleSecond;
     private RadioButton rbPerfumeBottleThird;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_smart_fragrance);
-        initView();
-        initEvent();
+    protected int createLayout(Bundle saveInstanceState) {
+        return R.layout.activity_smart_fragrance;
     }
 
     @Override
     protected void initView() {
-        super.initView();
         ivHome = findViewById(R.id.iv_home);
         cbSwitchFragrance = findViewById(R.id.cb_switch_fragrance);
         rbPerfumeBottleFirst = findViewById(R.id.rb_perfume_bottle_first);
@@ -49,11 +39,6 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
 
     @Override
     protected void initEvent() {
-        super.initEvent();
-        if (mContext == null) {
-            mContext = getApplicationContext();
-        }
-        mStatusManager = StatusManager.getInstance();
         ivHome.setOnClickListener(this);
         cbSwitchFragrance.setOnCheckedChangeListener(this);
         rbPerfumeBottleFirst.setOnCheckedChangeListener(this);

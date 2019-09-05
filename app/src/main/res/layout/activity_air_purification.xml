@@ -14,4 +14,157 @@
         android:layout_marginBottom="@dimen/widget_size_20"
         android:src="@drawable/icon_home" />
 
+    <LinearLayout
+        android:id="@+id/ll_car_outer_pm25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/widget_size_100"
+        android:layout_marginEnd="@dimen/widget_size_50"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/car_outer"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_20" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/pm25"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_20" />
+
+        <TextView
+            android:id="@+id/tv_outer_pm25_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/widget_size_30"
+            android:text="@string/outer_pm25_value"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_50" />
+
+        <TextView
+            android:id="@+id/tv_pollution_degree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/widget_size_30"
+            android:text="@string/severe_pollution"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_20" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/widget_size_60"
+        android:layout_marginTop="@dimen/widget_size_100">
+
+        <LinearLayout
+            android:id="@+id/ll_car_inner_pm25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_car_inner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/car_inner"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/font_size_20" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_car_inner"
+                    android:text="@string/pm25"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/font_size_20" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_inner_pm25_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/widget_size_30"
+                android:text="@string/inner_pm25_value"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_50" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_air_quality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_car_inner_pm25"
+            android:layout_marginTop="@dimen/widget_size_5"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/air_quality"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_20" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/widget_size_20"
+                android:text="@string/excellent"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_20" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_automatic_purification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_air_quality"
+            android:layout_marginTop="@dimen/widget_size_20"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/cb_switch_automatic_purification"
+                style="@style/CustomCheckBoxTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/automatic_purification"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_20" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_manual_purification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_automatic_purification"
+            android:layout_marginTop="@dimen/widget_size_10"
+            android:background="@drawable/icon_manual_purification"
+            android:orientation="horizontal" />
+    </RelativeLayout>
+
+
 </RelativeLayout>

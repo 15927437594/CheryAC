@@ -23,4 +23,14 @@
     <string name="automatic_defog">自动除雾</string>
     <string name="start_automatic_defog">即将进行自动除雾</string>
     <string name="defog_completed">除雾已完成</string>
+    <string name="car_inner">车内</string>
+    <string name="pm25">PM2.5</string>
+    <string name="air_quality">空气质量</string>
+    <string name="inner_pm25_value">27</string>
+    <string name="excellent">优</string>
+    <string name="automatic_purification">自动净化</string>
+    <string name="manual_purification">手动净化</string>
+    <string name="car_outer">车外</string>
+    <string name="outer_pm25_value">235</string>
+    <string name="severe_pollution">重度污染</string>
 </resources>
