@@ -162,9 +162,21 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ll_automatic_purification"
             android:layout_marginTop="@dimen/widget_size_10"
-            android:background="@drawable/icon_manual_purification"
-            android:orientation="horizontal" />
-    </RelativeLayout>
+            android:background="@drawable/selector_manual_purification"
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/widget_size_30"
+                android:layout_marginTop="@dimen/widget_size_5"
+                android:layout_marginEnd="@dimen/widget_size_30"
+                android:layout_marginBottom="@dimen/widget_size_5"
+                android:text="@string/manual_purification"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_30" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>

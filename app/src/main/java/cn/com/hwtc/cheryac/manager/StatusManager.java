@@ -37,7 +37,16 @@ public class StatusManager {
     private int sendInsidePhoto = 0;
     private int openInsideCamera = 0;
     private int openVenSystem = 0;
-    private DriveMode mDriveMode = DriveMode.MODE_WELCOME;
+
+    private int manualPurificationSwitch = 0; //手动净化开关状态
+    private int panel = 0; //画面选择
+    private int autoPurificationSwitch = 0; //自动净化开关状态
+    private int fragranceType = 0; //香氛类型
+    private int fragranceMode = 0; //香氛模式
+    private int fragranceConcentration = 0; //香氛浓度
+    private int carbonDioxideAutoMonitorSwitch = 0; //CO2自动检测开关状态
+    private int autoMistSwitch = 0; //自动除雾开关状态
+    private int autoFragranceSwitch = 0; //智能香氛开关状态
 
     private StatusManager() {
     }
@@ -251,16 +260,76 @@ public class StatusManager {
         this.openVenSystem = openVenSystem;
     }
 
-    private enum DriveMode {
-        MODE_WELCOME, MODE_LONG_DISTANCE, MODE_RELAX
+    public int getManualPurificationSwitch() {
+        return manualPurificationSwitch;
     }
 
-    public DriveMode getDriveMode() {
-        return mDriveMode;
+    public void setManualPurificationSwitch(int manualPurificationSwitch) {
+        this.manualPurificationSwitch = manualPurificationSwitch;
     }
 
-    public void setDriveMode(DriveMode mode) {
-        mDriveMode = mode;
+    public int getPanel() {
+        return panel;
+    }
+
+    public void setPanel(int panel) {
+        this.panel = panel;
+    }
+
+    public int getAutoPurificationSwitch() {
+        return autoPurificationSwitch;
+    }
+
+    public void setAutoPurificationSwitch(int autoPurificationSwitch) {
+        this.autoPurificationSwitch = autoPurificationSwitch;
+    }
+
+    public int getFragranceType() {
+        return fragranceType;
+    }
+
+    public void setFragranceType(int fragranceType) {
+        this.fragranceType = fragranceType;
+    }
+
+    public int getFragranceMode() {
+        return fragranceMode;
+    }
+
+    public void setFragranceMode(int fragranceMode) {
+        this.fragranceMode = fragranceMode;
+    }
+
+    public int getFragranceConcentration() {
+        return fragranceConcentration;
+    }
+
+    public void setFragranceConcentration(int fragranceConcentration) {
+        this.fragranceConcentration = fragranceConcentration;
+    }
+
+    public int getCarbonDioxideAutoMonitorSwitch() {
+        return carbonDioxideAutoMonitorSwitch;
+    }
+
+    public void setCarbonDioxideAutoMonitorSwitch(int carbonDioxideAutoMonitorSwitch) {
+        this.carbonDioxideAutoMonitorSwitch = carbonDioxideAutoMonitorSwitch;
+    }
+
+    public int getAutoMistSwitch() {
+        return autoMistSwitch;
+    }
+
+    public void setAutoMistSwitch(int autoMistSwitch) {
+        this.autoMistSwitch = autoMistSwitch;
+    }
+
+    public int getAutoFragranceSwitch() {
+        return autoFragranceSwitch;
+    }
+
+    public void setAutoFragranceSwitch(int autoFragranceSwitch) {
+        this.autoFragranceSwitch = autoFragranceSwitch;
     }
 
     /**

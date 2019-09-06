@@ -58,6 +58,7 @@
             android:src="@drawable/icon_perfume_bottle_first" />
 
         <RadioButton
+
             android:id="@+id/rb_perfume_bottle_first"
             style="@style/CustomRadioButtonTheme"
             android:layout_width="wrap_content"
@@ -153,7 +154,7 @@
             android:id="@+id/iv_fragrance_concentration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_fragrance_concentration" />
+            android:src="@drawable/icon_fragrance_concentration_default" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -163,6 +164,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_fragrance_concentration_high"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragrance_concentration_high"
@@ -170,6 +172,7 @@
                 android:textSize="@dimen/font_size_20" />
 
             <TextView
+                android:id="@+id/tv_fragrance_concentration_middle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/widget_size_80"
@@ -178,6 +181,7 @@
                 android:textSize="@dimen/font_size_20" />
 
             <TextView
+                android:id="@+id/tv_fragrance_concentration_low"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/widget_size_80"
@@ -209,7 +213,7 @@
             android:layout_width="@dimen/widget_size_50"
             android:layout_height="@dimen/widget_size_50"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/selector_welcome_mode" />
+            android:src="@drawable/icon_welcome_unable" />
 
         <TextView
             android:id="@+id/tv_welcome"
@@ -231,17 +235,17 @@
         android:layout_toEndOf="@+id/rl_welcome_mode">
 
         <ImageView
-            android:id="@+id/iv_long_distance_mode"
+            android:id="@+id/iv_long_distance"
             android:layout_width="@dimen/widget_size_50"
             android:layout_height="@dimen/widget_size_50"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/selector_long_distance_mode" />
+            android:src="@drawable/icon_long_distance_unable" />
 
         <TextView
-            android:id="@+id/tv_long_distance_mode"
+            android:id="@+id/tv_long_distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/iv_long_distance_mode"
+            android:layout_below="@+id/iv_long_distance"
             android:layout_centerHorizontal="true"
             android:text="@string/long_distance_mode"
             android:textColor="@android:color/white"
@@ -257,17 +261,17 @@
         android:layout_toEndOf="@+id/rl_long_distance_mode">
 
         <ImageView
-            android:id="@+id/iv_relax_mode"
+            android:id="@+id/iv_relax"
             android:layout_width="@dimen/widget_size_50"
             android:layout_height="@dimen/widget_size_50"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/selector_relax_mode" />
+            android:src="@drawable/icon_relax_unable" />
 
         <TextView
-            android:id="@+id/tv_relax_mode"
+            android:id="@+id/tv_relax"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/iv_relax_mode"
+            android:layout_below="@+id/iv_relax"
             android:layout_centerHorizontal="true"
             android:text="@string/relax_mode"
             android:textColor="@android:color/white"

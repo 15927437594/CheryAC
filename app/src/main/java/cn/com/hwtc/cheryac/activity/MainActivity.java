@@ -1,11 +1,13 @@
 package cn.com.hwtc.cheryac.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.tmall.ultraviewpager.UltraViewPager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import cn.com.hwtc.cheryac.R;
 import cn.com.hwtc.cheryac.adapter.UltraPagerAdapter;
@@ -58,7 +60,22 @@ public class MainActivity extends BaseActivity implements UltraPagerAdapter.OnPo
         String clsName = clsNameList.get(position);
         Log.d(TAG, "clsName -> " + clsName);
         mStatusManager.startActivity(mContext, "cn.com.hwtc.cheryac", clsName);
-        byte[] bytes = new byte[]{0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0};
+
+        int manualPurificationState = mStatusManager.getManualPurificationSwitch();
+
+        int panel = 0;
+        if (position == 0) {
+            panel = 1;
+        } else if (position == 1) {
+            panel = 4;
+        } else if (position == 2) {
+            panel = 2;
+        } else if (position == 3) {
+            panel = 3;
+        }
+        mStatusManager.setPanel(panel);
+
+        byte[] bytes = new byte[]{(byte) manualPurificationState, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0};
         mStatusManager.sendMsg(mContext, (byte) 0x3F, bytes);
     }
 
