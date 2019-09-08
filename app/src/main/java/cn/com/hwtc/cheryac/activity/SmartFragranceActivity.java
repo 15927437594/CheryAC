@@ -179,11 +179,8 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
         switch (compoundButton.getId()) {
             case R.id.cb_switch_fragrance:
                 Log.d(TAG, "onCheckedChanged cb_switch_fragrance -> " + b);
-                if (b) {
-                    mStatusManager.setAutoFragranceSwitch(1);
-                } else {
-                    mStatusManager.setAutoFragranceSwitch(0);
-                }
+                mStatusManager.setAutoFragranceSwitch(b ? 1 : 0);
+                mStatusManager.sendInfo(mContext);
                 break;
             case R.id.rb_perfume_bottle_first:
                 Log.d(TAG, "onCheckedChanged rb_perfume_bottle_first -> " + b);
@@ -192,6 +189,7 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
                     rbPerfumeBottleThird.setChecked(false);
                     mStatusManager.setFragranceType(1);
                 }
+                mStatusManager.sendInfo(mContext);
                 break;
             case R.id.rb_perfume_bottle_second:
                 Log.d(TAG, "onCheckedChanged rb_perfume_bottle_second -> " + b);
@@ -200,6 +198,7 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
                     rbPerfumeBottleThird.setChecked(false);
                     mStatusManager.setFragranceType(2);
                 }
+                mStatusManager.sendInfo(mContext);
                 break;
             case R.id.rb_perfume_bottle_third:
                 Log.d(TAG, "onCheckedChanged rb_perfume_bottle_third -> " + b);
@@ -208,6 +207,7 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
                     rbPerfumeBottleSecond.setChecked(false);
                     mStatusManager.setFragranceType(3);
                 }
+                mStatusManager.sendInfo(mContext);
                 break;
             default:
                 break;

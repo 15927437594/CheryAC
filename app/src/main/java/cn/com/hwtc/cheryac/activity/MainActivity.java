@@ -1,13 +1,11 @@
 package cn.com.hwtc.cheryac.activity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.tmall.ultraviewpager.UltraViewPager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import cn.com.hwtc.cheryac.R;
 import cn.com.hwtc.cheryac.adapter.UltraPagerAdapter;
@@ -46,6 +44,14 @@ public class MainActivity extends BaseActivity implements UltraPagerAdapter.OnPo
         //ultraViewPager.setInfiniteLoop(true);//设置无限循环模式
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume()");
+        mStatusManager.setPanel(0);
+        mStatusManager.sendInfo(mContext);
+    }
+
     private void createClsList() {
         clsNameList = new ArrayList<>();
         clsNameList.add(0, "cn.com.hwtc.cheryac.activity.AirPurificationActivity");
@@ -61,8 +67,6 @@ public class MainActivity extends BaseActivity implements UltraPagerAdapter.OnPo
         Log.d(TAG, "clsName -> " + clsName);
         mStatusManager.startActivity(mContext, "cn.com.hwtc.cheryac", clsName);
 
-        int manualPurificationState = mStatusManager.getManualPurificationSwitch();
-
         int panel = 0;
         if (position == 0) {
             panel = 1;
@@ -75,8 +79,7 @@ public class MainActivity extends BaseActivity implements UltraPagerAdapter.OnPo
         }
         mStatusManager.setPanel(panel);
 
-        byte[] bytes = new byte[]{(byte) manualPurificationState, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0};
-        mStatusManager.sendMsg(mContext, (byte) 0x3F, bytes);
+        mStatusManager.sendInfo(mContext);
     }
 
 }

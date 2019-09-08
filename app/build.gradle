@@ -13,7 +13,7 @@ android {
     }
     signingConfigs {
         hwSignedConfig {
-            storeFile file("H:\\keystore\\platform-daca02.keystore")
+            storeFile file("platform-daca02.keystore")
             storePassword "android"
             keyAlias "androidplatformkey"
             keyPassword "android"
