@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 /**
  * user: Created by jid on 2019/9/2.
@@ -33,11 +34,26 @@ public class StatusManager {
     private int carbonDioxideAutoMonitorFdk = 0;
     private int autoMistFdk = 0;
     private int autoFragranceFdk = 0;
-    private int informMaster = 0;
-    private int sendInsidePhoto = 0;
-    private int openInsideCamera = 0;
-    private int openVenSystem = 0;
-    private DriveMode mDriveMode = DriveMode.MODE_WELCOME;
+    private boolean informMaster = false;
+    private boolean sendInsidePhoto = false;
+    private boolean openInsideCamera = false;
+    private boolean openVenSystem = false;
+
+    private int manualPurificationSwitch = 0; //手动净化开关状态
+    private int panel = 0; //画面选择
+    private int autoPurificationSwitch = 0; //自动净化开关状态
+    private int fragranceType = 0; //香氛类型
+    private int fragranceMode = 0; //香氛模式
+    private int fragranceConcentration = 0; //香氛浓度
+    private int carbonDioxideAutoMonitorSwitch = 0; //CO2自动检测开关状态
+    private int autoMistSwitch = 0; //自动除雾开关状态
+    private int autoFragranceSwitch = 0; //智能香氛开关状态
+    private boolean defogCompleted = false; //是否除雾完成
+    private boolean autoControlPurification = false; //香氛自动控制标志
+
+    private OnUpdateAirPurificationCallback mOnUpdateAirPurificationCallback;
+    private OnUpdateVitalSignsCallback mOnUpdateVitalSignsCallback;
+    private OnUpdateAutoDefogCallback mOnUpdateAutoDefogCallback;
 
     private StatusManager() {
     }
@@ -219,48 +235,125 @@ public class StatusManager {
         this.autoFragranceFdk = autoFragranceFdk;
     }
 
-    public int getInformMaster() {
+    public boolean getInformMaster() {
         return informMaster;
     }
 
-    public void setInformMaster(int informMaster) {
+    public void setInformMaster(boolean informMaster) {
         this.informMaster = informMaster;
     }
 
-    public int getSendInsidePhoto() {
+    public boolean getSendInsidePhoto() {
         return sendInsidePhoto;
     }
 
-    public void setSendInsidePhoto(int sendInsidePhoto) {
+    public void setSendInsidePhoto(boolean sendInsidePhoto) {
         this.sendInsidePhoto = sendInsidePhoto;
     }
 
-    public int getOpenInsideCamera() {
+    public boolean getOpenInsideCamera() {
         return openInsideCamera;
     }
 
-    public void setOpenInsideCamera(int openInsideCamera) {
+    public void setOpenInsideCamera(boolean openInsideCamera) {
         this.openInsideCamera = openInsideCamera;
     }
 
-    public int getOpenVenSystem() {
+    public boolean getOpenVenSystem() {
         return openVenSystem;
     }
 
-    public void setOpenVenSystem(int openVenSystem) {
+    public void setOpenVenSystem(boolean openVenSystem) {
         this.openVenSystem = openVenSystem;
     }
 
-    private enum DriveMode {
-        MODE_WELCOME, MODE_LONG_DISTANCE, MODE_RELAX
+    public int getManualPurificationSwitch() {
+        return manualPurificationSwitch;
     }
 
-    public DriveMode getDriveMode() {
-        return mDriveMode;
+    public void setManualPurificationSwitch(int manualPurificationSwitch) {
+        this.manualPurificationSwitch = manualPurificationSwitch;
     }
 
-    public void setDriveMode(DriveMode mode) {
-        mDriveMode = mode;
+    public int getPanel() {
+        return panel;
+    }
+
+    public void setPanel(int panel) {
+        this.panel = panel;
+    }
+
+    public int getAutoPurificationSwitch() {
+        return autoPurificationSwitch;
+    }
+
+    public void setAutoPurificationSwitch(int autoPurificationSwitch) {
+        this.autoPurificationSwitch = autoPurificationSwitch;
+    }
+
+    public int getFragranceType() {
+        return fragranceType;
+    }
+
+    public void setFragranceType(int fragranceType) {
+        this.fragranceType = fragranceType;
+    }
+
+    public int getFragranceMode() {
+        return fragranceMode;
+    }
+
+    public void setFragranceMode(int fragranceMode) {
+        this.fragranceMode = fragranceMode;
+    }
+
+    public int getFragranceConcentration() {
+        return fragranceConcentration;
+    }
+
+    public void setFragranceConcentration(int fragranceConcentration) {
+        this.fragranceConcentration = fragranceConcentration;
+    }
+
+    public int getCarbonDioxideAutoMonitorSwitch() {
+        return carbonDioxideAutoMonitorSwitch;
+    }
+
+    public void setCarbonDioxideAutoMonitorSwitch(int carbonDioxideAutoMonitorSwitch) {
+        this.carbonDioxideAutoMonitorSwitch = carbonDioxideAutoMonitorSwitch;
+    }
+
+    public int getAutoMistSwitch() {
+        return autoMistSwitch;
+    }
+
+    public void setAutoMistSwitch(int autoMistSwitch) {
+        this.autoMistSwitch = autoMistSwitch;
+    }
+
+    public int getAutoFragranceSwitch() {
+        return autoFragranceSwitch;
+    }
+
+    public void setAutoFragranceSwitch(int autoFragranceSwitch) {
+        this.autoFragranceSwitch = autoFragranceSwitch;
+    }
+
+    public boolean getDefogCompleted() {
+        return defogCompleted;
+    }
+
+    public void setDefogCompleted(boolean defogCompleted) {
+        this.defogCompleted = defogCompleted;
+    }
+
+    public boolean getAutoControlPurification() {
+        return autoControlPurification;
+    }
+
+
+    public void setAutoControlPurification(boolean autoControlPurification) {
+        this.autoControlPurification = autoControlPurification;
     }
 
     /**
@@ -300,6 +393,7 @@ public class StatusManager {
      */
     @SuppressLint("PrivateApi")
     public void sendMsg(Context context, byte type, byte[] bytes) {
+        Log.d(TAG, "sendMsg -> " + Arrays.toString(bytes));
         @SuppressLint("WrongConstant") Object mcu_object = context.getSystemService("mcuhw");
         if (mcu_object == null) {
             Log.w(TAG, "sendMsg -> Cannot find mcu object");
@@ -315,12 +409,96 @@ public class StatusManager {
         }
     }
 
+    public void sendInfo(Context context) {
+        int manualPurificationSwitch = getManualPurificationSwitch();
+        int panel = getPanel();
+        int autoPurificationSwitch = getAutoPurificationSwitch();
+        int fragranceType = getFragranceType();
+        int fragranceMode = getFragranceMode();
+        int fragranceConcentration = getFragranceConcentration();
+        int carbonDioxideAutoMonitorSwitch = getCarbonDioxideAutoMonitorSwitch();
+        int autoMistSwitch = getAutoMistSwitch();
+        int autoFragranceSwitch = getAutoFragranceSwitch();
+        byte[] bytes = new byte[]{(byte) manualPurificationSwitch, (byte) panel, (byte) autoPurificationSwitch,
+                (byte) fragranceType, (byte) fragranceMode, (byte) fragranceConcentration,
+                (byte) carbonDioxideAutoMonitorSwitch, (byte) autoMistSwitch, (byte) autoFragranceSwitch};
+
+        sendMsg(context, (byte) 0x3F, bytes);
+    }
+
     public byte[] intsToBytes(int[] ints) {
         byte[] bytes = new byte[ints.length];
         for (int i = 0; i < ints.length; i++) {
             bytes[i] = (byte) ints[i];
         }
         return bytes;
+    }
+
+    private int calculateFogProbability(int humidSensor) {
+        int fogProbability;
+        if (humidSensor < 45) {
+            fogProbability = 0;
+        } else if (humidSensor <= 75) {
+            fogProbability = (humidSensor - 45) / (75 - 45) * 100;
+        } else {
+            fogProbability = 100;
+        }
+        return fogProbability;
+    }
+
+    public void updatePurification() {
+        if (mOnUpdateAirPurificationCallback != null) {
+            int percent = (outsidePm25 - insidePm25) / (outsidePm25 - pm25Ref) * 100;
+            mOnUpdateAirPurificationCallback.updatePurificationPercent(percent);
+        }
+    }
+
+    public void updateCarbonDioxideLevel() {
+        if (mOnUpdateVitalSignsCallback != null) {
+            mOnUpdateVitalSignsCallback.updateCarbonDioxide(carbonDioxideLevel);
+        }
+    }
+
+    public void updateMonitorAction() {
+        if (mOnUpdateVitalSignsCallback != null) {
+            mOnUpdateVitalSignsCallback.updateMonitorAction(informMaster, sendInsidePhoto, openInsideCamera, openVenSystem);
+        }
+    }
+
+    public void updateHumidity() {
+        if (mOnUpdateAutoDefogCallback != null) {
+            mOnUpdateAutoDefogCallback.updateCurrentHumidity(humidSensor);
+            int fogProbability = calculateFogProbability(humidSensor);
+            mOnUpdateAutoDefogCallback.updateFogProbability(fogProbability);
+        }
+    }
+
+    public interface OnUpdateAirPurificationCallback {
+        void updatePurificationPercent(int percent);
+    }
+
+    public interface OnUpdateVitalSignsCallback {
+        void updateCarbonDioxide(int level);
+
+        void updateMonitorAction(boolean informMaster, boolean sendInsidePhoto, boolean openInsideCamera, boolean openVenSystem);
+    }
+
+    public interface OnUpdateAutoDefogCallback {
+        void updateCurrentHumidity(int humidity);
+
+        void updateFogProbability(int fogProbability);
+    }
+
+    public void setOnUpdateAirPurificationCallback(OnUpdateAirPurificationCallback callback) {
+        mOnUpdateAirPurificationCallback = callback;
+    }
+
+    public void setOnUpdateVitalSignsCallback(OnUpdateVitalSignsCallback callback) {
+        mOnUpdateVitalSignsCallback = callback;
+    }
+
+    public void setOnUpdateAutoDefogCallback(OnUpdateAutoDefogCallback callback) {
+        mOnUpdateAutoDefogCallback = callback;
     }
 
 }

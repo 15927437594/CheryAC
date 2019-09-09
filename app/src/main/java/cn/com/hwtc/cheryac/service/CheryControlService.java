@@ -108,10 +108,15 @@ public class CheryControlService extends Service {
                 mStatusManager.setCarbonDioxideAutoMonitorFdk(data[15]);
                 mStatusManager.setAutoMistFdk(data[16]);
                 mStatusManager.setAutoFragranceFdk(data[17]);
-                mStatusManager.setInformMaster(data[18]);
-                mStatusManager.setSendInsidePhoto(data[19]);
-                mStatusManager.setOpenInsideCamera(data[20]);
-                mStatusManager.setOpenVenSystem(data[21]);
+                mStatusManager.setInformMaster(data[18] == 1);
+                mStatusManager.setSendInsidePhoto(data[19] == 1);
+                mStatusManager.setOpenInsideCamera(data[20] == 1);
+                mStatusManager.setOpenVenSystem(data[21] == 1);
+
+                mStatusManager.updateCarbonDioxideLevel();
+                mStatusManager.updatePurification();
+                mStatusManager.updateMonitorAction();
+                mStatusManager.updateHumidity();
             }
         }
     }

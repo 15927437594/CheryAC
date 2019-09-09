@@ -44,6 +44,14 @@ public class MainActivity extends BaseActivity implements UltraPagerAdapter.OnPo
         //ultraViewPager.setInfiniteLoop(true);//设置无限循环模式
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume()");
+        mStatusManager.setPanel(0);
+        mStatusManager.sendInfo(mContext);
+    }
+
     private void createClsList() {
         clsNameList = new ArrayList<>();
         clsNameList.add(0, "cn.com.hwtc.cheryac.activity.AirPurificationActivity");
@@ -58,8 +66,20 @@ public class MainActivity extends BaseActivity implements UltraPagerAdapter.OnPo
         String clsName = clsNameList.get(position);
         Log.d(TAG, "clsName -> " + clsName);
         mStatusManager.startActivity(mContext, "cn.com.hwtc.cheryac", clsName);
-        byte[] bytes = new byte[]{0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0};
-        mStatusManager.sendMsg(mContext, (byte) 0x3F, bytes);
+
+        int panel = 0;
+        if (position == 0) {
+            panel = 1;
+        } else if (position == 1) {
+            panel = 4;
+        } else if (position == 2) {
+            panel = 2;
+        } else if (position == 3) {
+            panel = 3;
+        }
+        mStatusManager.setPanel(panel);
+
+        mStatusManager.sendInfo(mContext);
     }
 
 }

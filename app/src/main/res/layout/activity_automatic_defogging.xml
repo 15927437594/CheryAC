@@ -91,11 +91,13 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_defog_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/widget_size_120"
         android:layout_marginTop="@dimen/widget_size_150"
-        android:layout_toEndOf="@+id/rl_automatic_defog">
+        android:layout_toEndOf="@+id/rl_automatic_defog"
+        android:visibility="invisible">
 
         <ImageView
             android:id="@+id/iv_defog_ok"
