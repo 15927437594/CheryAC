@@ -57,7 +57,8 @@
                 android:id="@+id/iv_open_ventilation_system"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_ok_small" />
+                android:src="@drawable/icon_ok_small"
+                android:visibility="invisible" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -81,7 +82,8 @@
                 android:id="@+id/iv_open_inside_camera"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_ok_small" />
+                android:src="@drawable/icon_ok_small"
+                android:visibility="invisible" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -105,7 +107,8 @@
                 android:id="@+id/iv_inform_master"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_ok_small" />
+                android:src="@drawable/icon_ok_small"
+                android:visibility="invisible" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -129,7 +132,8 @@
                 android:id="@+id/iv_send_inside_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_ok_small" />
+                android:src="@drawable/icon_ok_small"
+                android:visibility="invisible" />
 
             <TextView
                 android:layout_width="wrap_content"

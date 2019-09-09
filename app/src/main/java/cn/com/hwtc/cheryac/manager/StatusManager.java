@@ -48,6 +48,8 @@ public class StatusManager {
     private int carbonDioxideAutoMonitorSwitch = 0; //CO2自动检测开关状态
     private int autoMistSwitch = 0; //自动除雾开关状态
     private int autoFragranceSwitch = 0; //智能香氛开关状态
+    private boolean defogCompleted = false; //是否除雾完成
+    private boolean autoControlPurification = false; //香氛自动控制标志
 
     private OnUpdateAirPurificationCallback mOnUpdateAirPurificationCallback;
     private OnUpdateVitalSignsCallback mOnUpdateVitalSignsCallback;
@@ -335,6 +337,23 @@ public class StatusManager {
 
     public void setAutoFragranceSwitch(int autoFragranceSwitch) {
         this.autoFragranceSwitch = autoFragranceSwitch;
+    }
+
+    public boolean getDefogCompleted() {
+        return defogCompleted;
+    }
+
+    public void setDefogCompleted(boolean defogCompleted) {
+        this.defogCompleted = defogCompleted;
+    }
+
+    public boolean getAutoControlPurification() {
+        return autoControlPurification;
+    }
+
+
+    public void setAutoControlPurification(boolean autoControlPurification) {
+        this.autoControlPurification = autoControlPurification;
     }
 
     /**

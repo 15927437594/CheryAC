@@ -1,17 +1,13 @@
 package cn.com.hwtc.cheryac.activity;
 
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import cn.com.hwtc.cheryac.R;
 import cn.com.hwtc.cheryac.manager.StatusManager;
@@ -63,11 +59,18 @@ public class AutomaticDefoggingActivity extends BaseActivity implements View.OnC
     @Override
     public void updateCurrentHumidity(int humidity) {
         Log.d(TAG, "updateCurrentHumidity -> " + humidity);
+        //开启自动除雾状态下
         if (mStatusManager.getAutoMistSwitch() == 1) {
             if (humidity < 45) {
-                rlDefogOk.setVisibility(View.VISIBLE);
+                if (mStatusManager.getDefogCompleted()) {
+                    rlDefogOk.setVisibility(View.VISIBLE);
+                }
             } else if (humidity > 75) {
                 // TODO: 2019/9/8 开始识别是否除雾已完成
+                mStatusManager.setDefogCompleted(true);
+            } else if (humidity > 60) {
+                mStatusManager.setDefogCompleted(false);
+                rlDefogOk.setVisibility(View.INVISIBLE);
             }
         }
     }

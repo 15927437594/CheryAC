@@ -79,6 +79,16 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
         tvFragranceConcentrationMiddle.setOnClickListener(this);
         tvFragranceConcentrationLow.setOnClickListener(this);
         ivFragranceConcentration.setOnClickListener(this);
+        mHandler.postDelayed(mChangeConcentrationRunnable, 1000L);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy()");
+        if (mHandler != null) {
+            mHandler.removeCallbacksAndMessages(null);
+        }
     }
 
     private void updateFragranceMode() {
@@ -121,6 +131,28 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
         }
     }
 
+    private Runnable mChangeConcentrationRunnable = new Runnable() {
+        @Override
+        public void run() {
+            Log.d(TAG, "call mChangeConcentrationRunnable");
+            mHandler.postDelayed(this, 1000L);
+
+            if (mStatusManager.getAutoControlPurification()) {
+                if (mStatusManager.getFragranceConcentration() == 0) {
+                    mStatusManager.setFragranceConcentration(1);
+                } else if (mStatusManager.getFragranceConcentration() == 1) {
+                    mStatusManager.setFragranceConcentration(2);
+                } else if (mStatusManager.getFragranceConcentration() == 2) {
+                    mStatusManager.setFragranceConcentration(3);
+                } else if (mStatusManager.getFragranceConcentration() == 3) {
+                    mStatusManager.setFragranceConcentration(1);
+                }
+                updateFragranceConcentration();
+                mStatusManager.sendInfo(mContext);
+            }
+        }
+    };
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -131,31 +163,43 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
                 if (mStatusManager.getFragranceMode() != 1) {
                     mStatusManager.setFragranceMode(1);
                     updateFragranceMode();
+                    mStatusManager.sendInfo(mContext);
+                    mStatusManager.setAutoControlPurification(true);
                 }
                 break;
             case R.id.rl_long_distance_mode:
                 if (mStatusManager.getFragranceMode() != 2) {
                     mStatusManager.setFragranceMode(2);
                     updateFragranceMode();
+                    mStatusManager.sendInfo(mContext);
+                    mStatusManager.setAutoControlPurification(true);
                 }
                 break;
             case R.id.rl_relax_mode:
                 if (mStatusManager.getFragranceMode() != 3) {
                     mStatusManager.setFragranceMode(3);
                     updateFragranceMode();
+                    mStatusManager.sendInfo(mContext);
+                    mStatusManager.setAutoControlPurification(true);
                 }
                 break;
             case R.id.tv_fragrance_concentration_high:
                 mStatusManager.setFragranceConcentration(3);
                 updateFragranceConcentration();
+                mStatusManager.sendInfo(mContext);
+                mStatusManager.setAutoControlPurification(false);
                 break;
             case R.id.tv_fragrance_concentration_middle:
                 mStatusManager.setFragranceConcentration(2);
                 updateFragranceConcentration();
+                mStatusManager.sendInfo(mContext);
+                mStatusManager.setAutoControlPurification(false);
                 break;
             case R.id.tv_fragrance_concentration_low:
                 mStatusManager.setFragranceConcentration(1);
                 updateFragranceConcentration();
+                mStatusManager.sendInfo(mContext);
+                mStatusManager.setAutoControlPurification(false);
                 break;
             case R.id.iv_fragrance_concentration:
                 if (mStatusManager.getFragranceConcentration() == 0) {
@@ -168,6 +212,8 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
                     mStatusManager.setFragranceConcentration(1);
                 }
                 updateFragranceConcentration();
+                mStatusManager.setFragranceMode(0);
+                mStatusManager.sendInfo(mContext);
                 break;
             default:
                 break;

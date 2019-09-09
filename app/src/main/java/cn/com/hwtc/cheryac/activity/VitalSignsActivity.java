@@ -1,6 +1,5 @@
 package cn.com.hwtc.cheryac.activity;
 
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -79,18 +78,36 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
     @Override
     public void updateCarbonDioxide(int level) {
         Log.d(TAG, "updateCarbonDioxide -> " + level);
-        if (level > 0 & level <= 7) {
+        if (level == 0) {
+            ivCarbonDioxideConcentration.setImageDrawable(getResources().getDrawable(R.drawable.icon_carbon_dioxide_concentration));
+            tvVitalSigns.setText(getString(R.string.air_quality));
+        } else if (level == 1) {
+            ivCarbonDioxideConcentration.setImageDrawable(getResources().getDrawable(R.drawable.icon_carbon_dioxide_concentration_1));
+            tvVitalSigns.setText(getString(R.string.air_quality));
+        } else if (level > 1 & level <= 7) {
             ivCarbonDioxideConcentration.setImageDrawable(getResources().getDrawable(R.drawable.icon_carbon_dioxide_concentration_7));
-            tvVitalSigns.setText(getString(R.string.air_quality));
-        } else if (level > 7 & level <= 10) {
-            ivCarbonDioxideConcentration.setImageDrawable(getResources().getDrawable(R.drawable.icon_carbon_dioxide_concentration_10));
-            tvVitalSigns.setText(getString(R.string.air_quality));
+        } else if (level == 8) {
+            ivCarbonDioxideConcentration.setImageDrawable(getResources().getDrawable(R.drawable.icon_carbon_dioxide_concentration_8));
+        } else if (level > 8 & level <= 17) {
+            ivCarbonDioxideConcentration.setImageDrawable(getResources().getDrawable(R.drawable.icon_carbon_dioxide_concentration_17));
+        } else if (level == 18) {
+            ivCarbonDioxideConcentration.setImageDrawable(getResources().getDrawable(R.drawable.icon_carbon_dioxide_concentration_18));
+        } else if (level > 18 & level <= 27) {
+            ivCarbonDioxideConcentration.setImageDrawable(getResources().getDrawable(R.drawable.icon_carbon_dioxide_concentration_27));
+        } else if (level == 28) {
+            ivCarbonDioxideConcentration.setImageDrawable(getResources().getDrawable(R.drawable.icon_carbon_dioxide_concentration_28));
+        } else if (level > 28 & level <= 37) {
+            ivCarbonDioxideConcentration.setImageDrawable(getResources().getDrawable(R.drawable.icon_carbon_dioxide_concentration_37));
+        } else if (level == 38) {
+            ivCarbonDioxideConcentration.setImageDrawable(getResources().getDrawable(R.drawable.icon_carbon_dioxide_concentration_38));
+        } else if (level > 38 & level <= 45) {
+            ivCarbonDioxideConcentration.setImageDrawable(getResources().getDrawable(R.drawable.icon_carbon_dioxide_concentration_45));
         }
     }
 
     @Override
     public void updateMonitorAction(boolean informMaster, boolean sendInsidePhoto, boolean openInsideCamera, boolean openVenSystem) {
-        Log.d(TAG, "updateMonitorAction ->" + informMaster + "*" + sendInsidePhoto + "*" + openInsideCamera + "*" + openVenSystem);
+        Log.d(TAG, "updateMonitorAction -> " + informMaster + "*" + sendInsidePhoto + "*" + openInsideCamera + "*" + openVenSystem);
         ivInformMaster.setVisibility(informMaster ? View.VISIBLE : View.INVISIBLE);
         ivSendInsidePhoto.setVisibility(sendInsidePhoto ? View.VISIBLE : View.INVISIBLE);
         ivOpenInsideCamera.setVisibility(openInsideCamera ? View.VISIBLE : View.INVISIBLE);

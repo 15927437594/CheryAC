@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -20,6 +21,7 @@ public abstract class BaseActivity extends Activity {
     public static final String HW_STATUSBAR_MODE_EXTRA = "hw_statusbar_mode_extra";
     public static final String HW_STATUSBAR_SHOW_OR_HIDE_ACTION = "android.hw.statusbar.SHOW_OR_HIDE";
     protected Context mContext = null;
+    protected Handler mHandler = null;
     protected StatusManager mStatusManager;
 
     @Override
@@ -30,6 +32,9 @@ public abstract class BaseActivity extends Activity {
             setContentView(layout);
             if (mContext == null) {
                 mContext = getApplicationContext();
+            }
+            if (mHandler == null) {
+                mHandler = new Handler();
             }
             mStatusManager = StatusManager.getInstance();
             initView();
