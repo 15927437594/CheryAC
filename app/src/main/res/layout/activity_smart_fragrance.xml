@@ -55,10 +55,10 @@
             android:id="@+id/iv_perfume_bottle_first"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:src="@drawable/icon_perfume_bottle_first" />
 
         <RadioButton
-
             android:id="@+id/rb_perfume_bottle_first"
             style="@style/CustomRadioButtonTheme"
             android:layout_width="wrap_content"
@@ -89,6 +89,7 @@
             android:id="@+id/iv_perfume_bottle_second"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:src="@drawable/icon_perfume_bottle_second" />
 
         <RadioButton
@@ -122,6 +123,7 @@
             android:id="@+id/iv_perfume_bottle_third"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:src="@drawable/icon_perfume_bottle_third" />
 
         <RadioButton

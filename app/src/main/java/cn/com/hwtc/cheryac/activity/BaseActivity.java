@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -18,6 +19,7 @@ import cn.com.hwtc.cheryac.manager.StatusManager;
  * description:
  */
 public abstract class BaseActivity extends Activity {
+    private static final String TAG = BaseActivity.class.getSimpleName();
     public static final String HW_STATUSBAR_MODE_EXTRA = "hw_statusbar_mode_extra";
     public static final String HW_STATUSBAR_SHOW_OR_HIDE_ACTION = "android.hw.statusbar.SHOW_OR_HIDE";
     protected Context mContext = null;
@@ -27,6 +29,7 @@ public abstract class BaseActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate()");
         int layout = createLayout(savedInstanceState);
         if (layout != 0) {
             setContentView(layout);

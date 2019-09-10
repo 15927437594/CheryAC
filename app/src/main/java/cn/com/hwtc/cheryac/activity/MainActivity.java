@@ -3,12 +3,15 @@ package cn.com.hwtc.cheryac.activity;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import com.tmall.ultraviewpager.UltraViewPager;
 
 import java.util.ArrayList;
 
 import cn.com.hwtc.cheryac.R;
 import cn.com.hwtc.cheryac.adapter.UltraPagerAdapter;
+import cn.com.hwtc.cheryac.manager.SystemPropertiesUtil;
 import cn.com.hwtc.cheryac.manager.UltraScaleTransformer;
 
 public class MainActivity extends BaseActivity implements UltraPagerAdapter.OnPositionClickListener {
@@ -19,6 +22,13 @@ public class MainActivity extends BaseActivity implements UltraPagerAdapter.OnPo
     @Override
     protected int createLayout(Bundle saveInstanceState) {
         return R.layout.activity_main;
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate()");
+        SystemPropertiesUtil.setProperty("sys.usb.role", "device"); //System property need system permission
     }
 
     @Override

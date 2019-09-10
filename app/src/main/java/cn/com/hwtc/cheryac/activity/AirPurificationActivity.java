@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import cn.com.hwtc.cheryac.R;
 import cn.com.hwtc.cheryac.manager.StatusManager;
@@ -20,6 +21,8 @@ public class AirPurificationActivity extends BaseActivity implements View.OnClic
     private static final String TAG = AirPurificationActivity.class.getSimpleName();
     private ImageView ivHome;
     private LinearLayout llManualPurification;
+    private TextView tvOutsidePm25;
+    private TextView tvInsidePm25;
 
     @Override
     protected int createLayout(Bundle saveInstanceState) {
@@ -30,6 +33,8 @@ public class AirPurificationActivity extends BaseActivity implements View.OnClic
     protected void initView() {
         ivHome = findViewById(R.id.iv_home);
         llManualPurification = findViewById(R.id.ll_manual_purification);
+        tvOutsidePm25 = findViewById(R.id.tv_outside_pm25);
+        tvInsidePm25 = findViewById(R.id.tv_inside_pm25);
     }
 
     @Override
@@ -48,7 +53,7 @@ public class AirPurificationActivity extends BaseActivity implements View.OnClic
             case R.id.ll_manual_purification:
                 //点击手动净化按键后,CAN报文发送自动净化开启(界面自动净化不显示开启);进度条从0%快速滑动至k(已净化进度百分比)值位置,
                 //直到到达100%后,CAN报文发送自动净化关闭
-                mStatusManager.setAutoPurificationSwitch(1);
+                mStatusManager.setManualPurificationSwitch(1);
                 mStatusManager.sendInfo(mContext);
                 break;
             default:
@@ -71,10 +76,12 @@ public class AirPurificationActivity extends BaseActivity implements View.OnClic
     }
 
     @Override
-    public void updatePurificationPercent(int percent) {
-        Log.d(TAG, "updatePurificationPercent -> " + percent);
-        if (percent == 100) {
-            mStatusManager.setAutoPurificationSwitch(0);
+    public void updatePurificationPercent(int outsidePm25, int insidePm25, int percent) {
+        Log.d(TAG, "updatePurificationPercent -> " + outsidePm25 + " * " + insidePm25 + " * " + percent);
+        tvOutsidePm25.setText(String.valueOf(outsidePm25));
+        tvInsidePm25.setText(String.valueOf(insidePm25));
+        if (percent >= 100) {
+            mStatusManager.setManualPurificationSwitch(0);
             mStatusManager.sendInfo(mContext);
         }
     }

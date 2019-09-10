@@ -40,7 +40,7 @@
             android:textSize="@dimen/font_size_20" />
 
         <TextView
-            android:id="@+id/tv_outer_pm25_value"
+            android:id="@+id/tv_outside_pm25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -96,7 +96,7 @@
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/tv_inner_pm25_value"
+                android:id="@+id/tv_inside_pm25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

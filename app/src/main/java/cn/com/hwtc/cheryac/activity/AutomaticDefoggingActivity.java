@@ -89,6 +89,7 @@ public class AutomaticDefoggingActivity extends BaseActivity implements View.OnC
                 if (!b) {
                     rlDefogOk.setVisibility(View.INVISIBLE);
                 }
+                mStatusManager.sendInfo(mContext);
                 break;
             default:
                 break;

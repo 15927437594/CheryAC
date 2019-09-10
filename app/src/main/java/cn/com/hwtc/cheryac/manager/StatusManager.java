@@ -50,6 +50,7 @@ public class StatusManager {
     private int autoFragranceSwitch = 0; //智能香氛开关状态
     private boolean defogCompleted = false; //是否除雾完成
     private boolean autoControlPurification = false; //香氛自动控制标志
+    private int riseState = 0; //CO2浓度的上升状态
 
     private OnUpdateAirPurificationCallback mOnUpdateAirPurificationCallback;
     private OnUpdateVitalSignsCallback mOnUpdateVitalSignsCallback;
@@ -356,6 +357,14 @@ public class StatusManager {
         this.autoControlPurification = autoControlPurification;
     }
 
+    public int getRiseState() {
+        return riseState;
+    }
+
+    public void setRiseState(int riseState) {
+        this.riseState = riseState;
+    }
+
     /**
      * 如果此时下拉框处于显示状态,则隐藏下拉框
      *
@@ -435,11 +444,15 @@ public class StatusManager {
     }
 
     private int calculateFogProbability(int humidSensor) {
+        Log.d(TAG, "calculateFogProbability humidSensor -> " + humidSensor);
         int fogProbability;
         if (humidSensor < 45) {
             fogProbability = 0;
         } else if (humidSensor <= 75) {
-            fogProbability = (humidSensor - 45) / (75 - 45) * 100;
+            double d1 = humidSensor - 45;
+            double d2 = (75 - 45);
+            fogProbability = (int) (d1 / d2 * 100);
+            Log.d(TAG, "calculateFogProbability fogProbability -> " + fogProbability);
         } else {
             fogProbability = 100;
         }
@@ -448,14 +461,20 @@ public class StatusManager {
 
     public void updatePurification() {
         if (mOnUpdateAirPurificationCallback != null) {
-            int percent = (outsidePm25 - insidePm25) / (outsidePm25 - pm25Ref) * 100;
-            mOnUpdateAirPurificationCallback.updatePurificationPercent(percent);
+            Log.d(TAG, "updatePurification outsidePm25 " + outsidePm25);
+            Log.d(TAG, "updatePurification insidePm25 " + insidePm25);
+            Log.d(TAG, "updatePurification pm25Ref " + pm25Ref);
+            double d1 = outsidePm25 - insidePm25;
+            double d2 = outsidePm25 - pm25Ref;
+            int percent = (int) (d1 / d2 * 100);
+            Log.d(TAG, "updatePurification percent " + percent);
+            mOnUpdateAirPurificationCallback.updatePurificationPercent(outsidePm25, insidePm25, percent);
         }
     }
 
     public void updateCarbonDioxideLevel() {
         if (mOnUpdateVitalSignsCallback != null) {
-            mOnUpdateVitalSignsCallback.updateCarbonDioxide(carbonDioxideLevel);
+            mOnUpdateVitalSignsCallback.updateCarbonDioxide(riseState, carbonDioxideLevel);
         }
     }
 
@@ -474,11 +493,11 @@ public class StatusManager {
     }
 
     public interface OnUpdateAirPurificationCallback {
-        void updatePurificationPercent(int percent);
+        void updatePurificationPercent(int outsidePm25, int insidePm25, int percent);
     }
 
     public interface OnUpdateVitalSignsCallback {
-        void updateCarbonDioxide(int level);
+        void updateCarbonDioxide(int riseState, int level);
 
         void updateMonitorAction(boolean informMaster, boolean sendInsidePhoto, boolean openInsideCamera, boolean openVenSystem);
     }

@@ -184,19 +184,25 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
                 }
                 break;
             case R.id.tv_fragrance_concentration_high:
+                mStatusManager.setFragranceMode(0);
                 mStatusManager.setFragranceConcentration(3);
+                updateFragranceMode();
                 updateFragranceConcentration();
                 mStatusManager.sendInfo(mContext);
                 mStatusManager.setAutoControlPurification(false);
                 break;
             case R.id.tv_fragrance_concentration_middle:
+                mStatusManager.setFragranceMode(0);
                 mStatusManager.setFragranceConcentration(2);
+                updateFragranceMode();
                 updateFragranceConcentration();
                 mStatusManager.sendInfo(mContext);
                 mStatusManager.setAutoControlPurification(false);
                 break;
             case R.id.tv_fragrance_concentration_low:
+                mStatusManager.setFragranceMode(0);
                 mStatusManager.setFragranceConcentration(1);
+                updateFragranceMode();
                 updateFragranceConcentration();
                 mStatusManager.sendInfo(mContext);
                 mStatusManager.setAutoControlPurification(false);
