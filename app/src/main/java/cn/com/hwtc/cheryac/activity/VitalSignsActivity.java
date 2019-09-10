@@ -32,6 +32,7 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
     private TextView tvOpenInsideCamera;
     private TextView tvInformMaster;
     private TextView tvSendInsidePhoto;
+    private LinearLayout llInsideAirFresh;
 
     @Override
     protected int createLayout(Bundle saveInstanceState) {
@@ -52,7 +53,7 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
         tvOpenInsideCamera = findViewById(R.id.tv_open_inside_camera);
         tvInformMaster = findViewById(R.id.tv_inform_master);
         tvSendInsidePhoto = findViewById(R.id.tv_send_inside_photo);
-        LinearLayout llInside_air_fresh = findViewById(R.id.ll_inside_air_fresh);
+        llInsideAirFresh = findViewById(R.id.ll_inside_air_fresh);
     }
 
     @Override
@@ -60,6 +61,14 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
         ivHome.setOnClickListener(this);
         cbSwitchAutomaticMonitor.setOnCheckedChangeListener(this);
         mStatusManager.setOnUpdateVitalSignsCallback(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume()");
+        cbSwitchAutomaticMonitor.setChecked(mStatusManager.getCarbonDioxideAutoMonitorSwitch() == 1);
+        updateCarbonDioxide(mStatusManager.getRiseState(), mStatusManager.getCarbonDioxideLevel());
     }
 
     @Override
@@ -85,6 +94,10 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
         }
     }
 
+    /**
+     * riseState: 2表示上升,3表示下降
+     * level: CO2的浓度等级
+     */
     @Override
     public void updateCarbonDioxide(int riseState, int level) {
         Log.d(TAG, "updateCarbonDioxide riseState -> " + riseState);
@@ -115,21 +128,22 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
 
         if (riseState == 2) {
             if (level > 0 & level < 8) {
-                ivOpenVentilationSystem.setVisibility(View.VISIBLE);
-                tvOpenVentilationSystem.setVisibility(View.VISIBLE);
-                tvOpenVentilationSystem.setText(getString(R.string.inside_air_fresh));
-                tvVitalSigns.setText(getString(R.string.monitor_vital_signs_4));
+                llInsideAirFresh.setVisibility(View.VISIBLE);
+                tvVitalSigns.setText("");
             } else if (level >= 8 & level < 18) {
+                llInsideAirFresh.setVisibility(View.INVISIBLE);
                 //心形右侧打钩项每隔一秒显示一行
                 tvOpenVentilationSystem.setVisibility(View.VISIBLE);
-                tvOpenVentilationSystem.setText(getString(R.string.open_ventilation_system));
 
                 tvVitalSigns.setText(getString(R.string.monitor_vital_signs_1));
             } else if (level >= 18 & level < 28) {
+                llInsideAirFresh.setVisibility(View.INVISIBLE);
                 tvVitalSigns.setText(getString(R.string.monitor_vital_signs_2));
             } else if (level >= 28 & level < 38) {
+                llInsideAirFresh.setVisibility(View.INVISIBLE);
                 tvVitalSigns.setText(getString(R.string.monitor_vital_signs_3));
             } else if (level >= 38) {
+                llInsideAirFresh.setVisibility(View.INVISIBLE);
                 ivOpenVentilationSystem.setVisibility(View.VISIBLE);
                 tvOpenVentilationSystem.setVisibility(View.VISIBLE);
                 tvOpenVentilationSystem.setText(getString(R.string.monitor_vital_signs_rescue));

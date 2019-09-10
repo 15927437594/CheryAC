@@ -52,6 +52,8 @@ public class StatusManager {
     private boolean autoControlPurification = false; //香氛自动控制标志
     private int riseState = 0; //CO2浓度的上升状态
 
+    private int fogProbability = 0; //起雾概率
+
     private OnUpdateAirPurificationCallback mOnUpdateAirPurificationCallback;
     private OnUpdateVitalSignsCallback mOnUpdateVitalSignsCallback;
     private OnUpdateAutoDefogCallback mOnUpdateAutoDefogCallback;
@@ -365,6 +367,14 @@ public class StatusManager {
         this.riseState = riseState;
     }
 
+    public int getFogProbability() {
+        return fogProbability;
+    }
+
+    public void setFogProbability(int fogProbability) {
+        this.fogProbability = fogProbability;
+    }
+
     /**
      * 如果此时下拉框处于显示状态,则隐藏下拉框
      *
@@ -488,6 +498,7 @@ public class StatusManager {
         if (mOnUpdateAutoDefogCallback != null) {
             mOnUpdateAutoDefogCallback.updateCurrentHumidity(humidSensor);
             int fogProbability = calculateFogProbability(humidSensor);
+            setFogProbability(fogProbability);
             mOnUpdateAutoDefogCallback.updateFogProbability(fogProbability);
         }
     }
