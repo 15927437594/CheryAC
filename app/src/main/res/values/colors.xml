@@ -7,4 +7,5 @@
     <color name="colorRed">#FF0000</color>
     <color name="colorLauncher">#34406F</color>
     <color name="colorFragranceMode">#C34748</color>
+    <color name="colorProgressBar">#CCAB99</color>
 </resources>

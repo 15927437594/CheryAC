@@ -39,6 +39,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_vital_signs_tips"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/widget_size_10"
@@ -67,11 +68,12 @@
                 android:layout_marginTop="@dimen/widget_size_5"
                 android:text="@string/open_ventilation_system"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/font_size_20" />
+                android:textSize="@dimen/font_size_20"
+                android:visibility="invisible" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ll_car_camera"
+            android:id="@+id/ll_open_inside_camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ll_ventilation_system"
@@ -93,14 +95,15 @@
                 android:layout_marginTop="@dimen/widget_size_5"
                 android:text="@string/open_car_camera"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/font_size_20" />
+                android:textSize="@dimen/font_size_20"
+                android:visibility="invisible" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ll_inform_owner"
+            android:id="@+id/ll_inform_master"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ll_car_camera"
+            android:layout_below="@+id/ll_open_inside_camera"
             android:layout_marginTop="@dimen/widget_size_5"
             android:orientation="horizontal">
 
@@ -119,14 +122,15 @@
                 android:layout_marginTop="@dimen/widget_size_5"
                 android:text="@string/inform_owner"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/font_size_20" />
+                android:textSize="@dimen/font_size_20"
+                android:visibility="invisible" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ll_send_car_picture"
+            android:id="@+id/ll_send_inside_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ll_inform_owner"
+            android:layout_below="@+id/ll_inform_master"
             android:layout_marginTop="@dimen/widget_size_5"
             android:orientation="horizontal">
 
@@ -145,7 +149,8 @@
                 android:layout_marginTop="@dimen/widget_size_5"
                 android:text="@string/send_car_picture"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/font_size_20" />
+                android:textSize="@dimen/font_size_20"
+                android:visibility="invisible" />
         </LinearLayout>
 
         <LinearLayout
@@ -170,6 +175,25 @@
                 android:layout_marginTop="@dimen/widget_size_5"
                 android:text="@string/inside_air_fresh"
                 android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_20" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_ai_robot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/widget_size_5"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <TextView
+                android:id="@+id/tv_ai_robot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/widget_size_40"
+                android:layout_marginTop="@dimen/widget_size_5"
+                android:text="@string/monitor_vital_signs_rescue"
+                android:textColor="@android:color/holo_red_dark"
                 android:textSize="@dimen/font_size_20" />
         </LinearLayout>
 

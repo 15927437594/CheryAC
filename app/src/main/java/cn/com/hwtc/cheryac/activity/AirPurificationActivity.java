@@ -7,6 +7,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import cn.com.hwtc.cheryac.R;
@@ -25,7 +26,9 @@ public class AirPurificationActivity extends BaseActivity implements View.OnClic
     private TextView tvOutsidePm25;
     private TextView tvInsidePm25;
     private CheckBox cbSwitchAutomaticPurification;
+    private TextView tvAirQuality;
     private TextView tvPollutionDegree;
+    private ProgressBar pbPurificationPercent;
 
     @Override
     protected int createLayout(Bundle saveInstanceState) {
@@ -39,7 +42,9 @@ public class AirPurificationActivity extends BaseActivity implements View.OnClic
         tvOutsidePm25 = findViewById(R.id.tv_outside_pm25);
         tvInsidePm25 = findViewById(R.id.tv_inside_pm25);
         cbSwitchAutomaticPurification = findViewById(R.id.cb_switch_automatic_purification);
+        tvAirQuality = findViewById(R.id.tv_air_quality);
         tvPollutionDegree = findViewById(R.id.tv_pollution_degree);
+        pbPurificationPercent = findViewById(R.id.pb_purification_percent);
     }
 
     @Override
@@ -54,7 +59,12 @@ public class AirPurificationActivity extends BaseActivity implements View.OnClic
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume()");
+        tvOutsidePm25.setText(String.valueOf(mStatusManager.getOutsidePm25()));
+        tvInsidePm25.setText(String.valueOf(mStatusManager.getInsidePm25()));
         cbSwitchAutomaticPurification.setChecked(mStatusManager.getAutoPurificationSwitch() == 1);
+        pbPurificationPercent.setProgress(mStatusManager.getPurificationPercent());
+        tvAirQuality.setText(mStatusManager.getPollutionDegree(mContext, mStatusManager.getInsidePm25()));
+        tvPollutionDegree.setText(mStatusManager.getPollutionDegree(mContext, mStatusManager.getOutsidePm25()));
     }
 
     @Override
@@ -93,10 +103,16 @@ public class AirPurificationActivity extends BaseActivity implements View.OnClic
         Log.d(TAG, "updatePurificationPercent -> " + outsidePm25 + " * " + insidePm25 + " * " + percent);
         tvOutsidePm25.setText(String.valueOf(outsidePm25));
         tvInsidePm25.setText(String.valueOf(insidePm25));
+        if (percent <= 100) {
+            pbPurificationPercent.setProgress(percent);
+        }
+
         if (percent >= 100) {
             mStatusManager.setManualPurificationSwitch(0);
             mStatusManager.sendInfo(mContext);
         }
         // TODO: 2019/9/10 根据车内pm25(优良恶劣)和车外pm25判断环境标准(重度污染中度污染轻度污染)
+        tvAirQuality.setText(mStatusManager.getPollutionDegree(mContext, insidePm25));
+        tvPollutionDegree.setText(mStatusManager.getPollutionDegree(mContext, outsidePm25));
     }
 }

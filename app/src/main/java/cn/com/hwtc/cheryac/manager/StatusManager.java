@@ -11,6 +11,8 @@ import android.view.KeyEvent;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
+import cn.com.hwtc.cheryac.R;
+
 /**
  * user: Created by jid on 2019/9/2.
  * email: jid@hwtc.com.cn
@@ -53,6 +55,7 @@ public class StatusManager {
     private int riseState = 0; //CO2浓度的上升状态
 
     private int fogProbability = 0; //起雾概率
+    private int purificationPercent = 0; //空气净化率
 
     private OnUpdateAirPurificationCallback mOnUpdateAirPurificationCallback;
     private OnUpdateVitalSignsCallback mOnUpdateVitalSignsCallback;
@@ -375,6 +378,14 @@ public class StatusManager {
         this.fogProbability = fogProbability;
     }
 
+    public int getPurificationPercent() {
+        return purificationPercent;
+    }
+
+    public void setPurificationPercent(int purificationPercent) {
+        this.purificationPercent = purificationPercent;
+    }
+
     /**
      * 如果此时下拉框处于显示状态,则隐藏下拉框
      *
@@ -469,6 +480,25 @@ public class StatusManager {
         return fogProbability;
     }
 
+    public String getPollutionDegree(Context context, int pm25) {
+        String pollutionDegree = "";
+        if (pm25 >= 0 & pm25 <= 50) {
+            pollutionDegree = context.getString(R.string.excellent);
+        } else if (pm25 >= 51 & pm25 <= 100) {
+            pollutionDegree = context.getString(R.string.good);
+        } else if (pm25 >= 101 & pm25 <= 150) {
+            pollutionDegree = context.getString(R.string.mild_pollution);
+        } else if (pm25 >= 151 & pm25 <= 200) {
+            pollutionDegree = context.getString(R.string.middle_pollution);
+        } else if (pm25 >= 201 & pm25 <= 300) {
+            pollutionDegree = context.getString(R.string.severe_pollution);
+        } else if (pm25 >= 301) {
+            pollutionDegree = context.getString(R.string.serious_pollution);
+        }
+
+        return pollutionDegree;
+    }
+
     public void updatePurification() {
         if (mOnUpdateAirPurificationCallback != null) {
             Log.d(TAG, "updatePurification outsidePm25 " + outsidePm25);
@@ -478,6 +508,7 @@ public class StatusManager {
             double d2 = outsidePm25 - pm25Ref;
             int percent = (int) (d1 / d2 * 100);
             Log.d(TAG, "updatePurification percent " + percent);
+            setPurificationPercent(percent);
             mOnUpdateAirPurificationCallback.updatePurificationPercent(outsidePm25, insidePm25, percent);
         }
     }

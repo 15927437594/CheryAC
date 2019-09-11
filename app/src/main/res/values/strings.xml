@@ -26,13 +26,15 @@
     <string name="car_inner">车内</string>
     <string name="pm25">PM2.5</string>
     <string name="air_quality">空气质量</string>
-    <string name="inner_pm25_value">27</string>
     <string name="excellent">优</string>
+    <string name="good">良</string>
+    <string name="mild_pollution">轻度污染</string>
+    <string name="middle_pollution">中度污染</string>
+    <string name="severe_pollution">重度污染</string>
+    <string name="serious_pollution">严重污染</string>
     <string name="automatic_purification">自动净化</string>
     <string name="manual_purification">手动净化</string>
     <string name="car_outer">车外</string>
-    <string name="outer_pm25_value">235</string>
-    <string name="severe_pollution">重度污染</string>
     <string name="monitor_vital_signs_1">监测到车内存在生命体征</string>
     <string name="monitor_vital_signs_2">车内生命体出现恶心呕吐!</string>
     <string name="monitor_vital_signs_3">车内生命体出现呼吸困难、神情呆滞!</string>
@@ -41,5 +43,5 @@
     <string name="monitor_vital_signs_6">车内生命体呼吸恢复平稳!</string>
     <string name="monitor_vital_signs_7">车内生命体恶心现象缓解!</string>
     <string name="monitor_vital_signs_8">车内生命体征已恢复正常!</string>
-    <string name="monitor_vital_signs_rescue">AI机器人已经自动拨打120前来救援!</string>
+    <string name="monitor_vital_signs_rescue">AI机器人已经自动\n拨打120前来救援!</string>
 </resources>

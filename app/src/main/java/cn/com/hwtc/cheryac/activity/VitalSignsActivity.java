@@ -7,6 +7,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import cn.com.hwtc.cheryac.R;
@@ -32,7 +33,13 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
     private TextView tvOpenInsideCamera;
     private TextView tvInformMaster;
     private TextView tvSendInsidePhoto;
+    private LinearLayout llVentilationSystem;
+    private LinearLayout llOpenInsideCamera;
+    private LinearLayout llInformMaster;
+    private LinearLayout llSendInsidePhoto;
     private LinearLayout llInsideAirFresh;
+    private LinearLayout llAiRobot;
+    private RelativeLayout rlVitalSignsTips;
 
     @Override
     protected int createLayout(Bundle saveInstanceState) {
@@ -53,7 +60,13 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
         tvOpenInsideCamera = findViewById(R.id.tv_open_inside_camera);
         tvInformMaster = findViewById(R.id.tv_inform_master);
         tvSendInsidePhoto = findViewById(R.id.tv_send_inside_photo);
+        llVentilationSystem = findViewById(R.id.ll_ventilation_system);
+        llOpenInsideCamera = findViewById(R.id.ll_open_inside_camera);
+        llInformMaster = findViewById(R.id.ll_inform_master);
+        llSendInsidePhoto = findViewById(R.id.ll_send_inside_photo);
         llInsideAirFresh = findViewById(R.id.ll_inside_air_fresh);
+        llAiRobot = findViewById(R.id.ll_ai_robot);
+        rlVitalSignsTips = findViewById(R.id.rl_vital_signs_tips);
     }
 
     @Override
@@ -129,37 +142,96 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
         if (riseState == 2) {
             if (level > 0 & level < 8) {
                 llInsideAirFresh.setVisibility(View.VISIBLE);
+                tvOpenVentilationSystem.setVisibility(View.INVISIBLE);
+                tvOpenInsideCamera.setVisibility(View.INVISIBLE);
+                tvInformMaster.setVisibility(View.INVISIBLE);
+                tvSendInsidePhoto.setVisibility(View.INVISIBLE);
+
                 tvVitalSigns.setText("");
             } else if (level >= 8 & level < 18) {
+                llAiRobot.setVisibility(View.INVISIBLE);
                 llInsideAirFresh.setVisibility(View.INVISIBLE);
                 //心形右侧打钩项每隔一秒显示一行
                 tvOpenVentilationSystem.setVisibility(View.VISIBLE);
+                tvOpenInsideCamera.setVisibility(View.VISIBLE);
+                tvInformMaster.setVisibility(View.VISIBLE);
+                tvSendInsidePhoto.setVisibility(View.VISIBLE);
 
                 tvVitalSigns.setText(getString(R.string.monitor_vital_signs_1));
             } else if (level >= 18 & level < 28) {
+                tvOpenVentilationSystem.setVisibility(View.INVISIBLE);
+                tvOpenInsideCamera.setVisibility(View.INVISIBLE);
+                tvInformMaster.setVisibility(View.INVISIBLE);
+                tvSendInsidePhoto.setVisibility(View.INVISIBLE);
+                llAiRobot.setVisibility(View.INVISIBLE);
                 llInsideAirFresh.setVisibility(View.INVISIBLE);
+
                 tvVitalSigns.setText(getString(R.string.monitor_vital_signs_2));
             } else if (level >= 28 & level < 38) {
+                tvOpenVentilationSystem.setVisibility(View.INVISIBLE);
+                tvOpenInsideCamera.setVisibility(View.INVISIBLE);
+                tvInformMaster.setVisibility(View.INVISIBLE);
+                tvSendInsidePhoto.setVisibility(View.INVISIBLE);
+                llAiRobot.setVisibility(View.INVISIBLE);
                 llInsideAirFresh.setVisibility(View.INVISIBLE);
+
                 tvVitalSigns.setText(getString(R.string.monitor_vital_signs_3));
             } else if (level >= 38) {
                 llInsideAirFresh.setVisibility(View.INVISIBLE);
-                ivOpenVentilationSystem.setVisibility(View.VISIBLE);
-                tvOpenVentilationSystem.setVisibility(View.VISIBLE);
-                tvOpenVentilationSystem.setText(getString(R.string.monitor_vital_signs_rescue));
-                tvOpenVentilationSystem.setTextColor(getResources().getColor(R.color.colorRed));
+                tvOpenVentilationSystem.setVisibility(View.INVISIBLE);
+                tvOpenInsideCamera.setVisibility(View.INVISIBLE);
+                tvInformMaster.setVisibility(View.INVISIBLE);
+                tvSendInsidePhoto.setVisibility(View.INVISIBLE);
+                llAiRobot.setVisibility(View.VISIBLE);
+
+                tvVitalSigns.setText("");
             }
         } else if (riseState == 3) {
-            if (level > 27 & level <= 37) {
+            if (level > 37) {
+                llInsideAirFresh.setVisibility(View.INVISIBLE);
+                tvOpenVentilationSystem.setVisibility(View.INVISIBLE);
+                tvOpenInsideCamera.setVisibility(View.INVISIBLE);
+                tvInformMaster.setVisibility(View.INVISIBLE);
+                tvSendInsidePhoto.setVisibility(View.INVISIBLE);
+                llAiRobot.setVisibility(View.VISIBLE);
+                tvVitalSigns.setText("");
+            } else if (level > 27 & level <= 37) {
+                tvOpenVentilationSystem.setVisibility(View.INVISIBLE);
+                tvOpenInsideCamera.setVisibility(View.INVISIBLE);
+                tvInformMaster.setVisibility(View.INVISIBLE);
+                tvSendInsidePhoto.setVisibility(View.INVISIBLE);
+                llAiRobot.setVisibility(View.INVISIBLE);
+                llInsideAirFresh.setVisibility(View.INVISIBLE);
+
                 tvVitalSigns.setText(getString(R.string.monitor_vital_signs_5));
             } else if (level > 17 & level <= 27) {
+                tvOpenVentilationSystem.setVisibility(View.INVISIBLE);
+                tvOpenInsideCamera.setVisibility(View.INVISIBLE);
+                tvInformMaster.setVisibility(View.INVISIBLE);
+                tvSendInsidePhoto.setVisibility(View.INVISIBLE);
+                llAiRobot.setVisibility(View.INVISIBLE);
+                llInsideAirFresh.setVisibility(View.INVISIBLE);
+
                 tvVitalSigns.setText(getString(R.string.monitor_vital_signs_6));
             } else if (level > 7 & level <= 17) {
+                llAiRobot.setVisibility(View.INVISIBLE);
+                llInsideAirFresh.setVisibility(View.INVISIBLE);
+                //心形右侧打钩项每隔一秒显示一行
+                tvOpenVentilationSystem.setVisibility(View.VISIBLE);
+                tvOpenInsideCamera.setVisibility(View.VISIBLE);
+                tvInformMaster.setVisibility(View.VISIBLE);
+                tvSendInsidePhoto.setVisibility(View.VISIBLE);
+
                 tvVitalSigns.setText(getString(R.string.monitor_vital_signs_7));
             } else if (level == 7) {
                 tvVitalSigns.setText(getString(R.string.monitor_vital_signs_8));
             } else {
-
+                llInsideAirFresh.setVisibility(View.VISIBLE);
+                tvOpenVentilationSystem.setVisibility(View.INVISIBLE);
+                tvOpenInsideCamera.setVisibility(View.INVISIBLE);
+                tvInformMaster.setVisibility(View.INVISIBLE);
+                tvSendInsidePhoto.setVisibility(View.INVISIBLE);
+                tvVitalSigns.setText("");
             }
         }
     }
