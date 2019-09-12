@@ -10,7 +10,12 @@
 
     <!-- CustomCheckBox theme. -->
     <style name="CustomCheckBoxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
-        <item name="android:button">@drawable/purification_selector</item>
+        <item name="android:button">@drawable/selector_purification</item>
+    </style>
+
+    <!-- CustomRadioButton theme. -->
+    <style name="CustomRadioButtonTheme" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/selector_radio_button</item>
     </style>
 
 </resources>

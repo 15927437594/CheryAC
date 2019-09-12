@@ -11,6 +11,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import java.util.Arrays;
+
 import cn.com.hwtc.cheryac.manager.StatusManager;
 
 /**
@@ -82,7 +84,53 @@ public class CheryControlService extends Service {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (MCUHW_PROTOCOL_3E_CHERY_AC1_ACTION.equals(action)) {
+                byte[] data = intent.getByteArrayExtra(EXTRA_NAME_PROTOCOL);
+                Integer[] dataInt = new Integer[22];
+                if (data == null) {
+                    Log.w(TAG, "data == null");
+                    return;
+                }
 
+                Log.d(TAG, "onReceive data -> " + Arrays.toString(data));
+
+                if (data.length < 22) {
+                    Log.w(TAG, "data.length < 22, this data is invalid");
+                    return;
+                }
+
+                for (int i = 0; i < 22; i++) {
+                    dataInt[i] = data[i] & 0xff;
+                }
+
+                Log.d(TAG, "onReceive dataInt -> " + Arrays.toString(dataInt));
+                if (dataInt[0] > 0) {
+                    mStatusManager.setPm25Ref(dataInt[0]);
+                }
+                mStatusManager.setRiseState(dataInt[1]);
+                mStatusManager.setPm25Warning(dataInt[2]);
+                mStatusManager.setPm25AutoCleanFdk(dataInt[3]);
+                mStatusManager.setOutsidePm25(dataInt[4] << 8 | dataInt[5]);
+                mStatusManager.setOutsidePm25Valid(dataInt[6]);
+                mStatusManager.setInsidePm25(dataInt[7] << 8 | dataInt[8]);
+                mStatusManager.setInsidePm25Valid(dataInt[9]);
+                mStatusManager.setHumidUpState(dataInt[10] > mStatusManager.getHumidSensor());
+                mStatusManager.setHumidSensor(dataInt[10]);
+                mStatusManager.setHumidTempError(dataInt[11]);
+                mStatusManager.setCarbonDioxideWarning(dataInt[12]);
+                mStatusManager.setCarbonDioxideValid(dataInt[13]);
+                mStatusManager.setCarbonDioxideLevel(dataInt[14]);
+                mStatusManager.setCarbonDioxideAutoMonitorFdk(dataInt[15]);
+                mStatusManager.setAutoMistFdk(dataInt[16]);
+                mStatusManager.setAutoFragranceFdk(dataInt[17]);
+                mStatusManager.setInformMaster(dataInt[18] == 1);
+                mStatusManager.setSendInsidePhoto(dataInt[19] == 1);
+                mStatusManager.setOpenInsideCamera(dataInt[20] == 1);
+                mStatusManager.setOpenVenSystem(dataInt[21] == 1);
+
+                mStatusManager.updateCarbonDioxideLevel();
+                mStatusManager.updatePurification();
+                mStatusManager.updateMonitorAction();
+                mStatusManager.updateHumidity();
             }
         }
     }

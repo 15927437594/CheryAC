@@ -2,14 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_smart_fragrance"
-    android:orientation="vertical">
-
-    <CheckBox
-        style="@style/CustomCheckBoxTheme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+    android:background="@drawable/bg_smart_fragrance">
 
     <!--    <Switch-->
     <!--        android:id="@+id/switch_fragrance"-->
@@ -25,13 +18,289 @@
     <!--        android:track="@drawable/switch_track" />-->
 
     <ImageView
+        android:id="@+id/iv_perfume_bottle_model"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/widget_size_80"
+        android:layout_marginTop="@dimen/widget_size_100"
+        android:layout_toEndOf="@+id/rl_switch_fragrance"
+        android:src="@drawable/icon_perfume_bottle_model" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/widget_size_205"
+        android:layout_marginTop="@dimen/widget_size_135"
+        android:src="@drawable/icon_perfume_bottle_petals" />
+
+    <ImageView
         android:id="@+id/iv_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginStart="@dimen/widget_size_20"
+        android:layout_marginBottom="@dimen/widget_size_15"
         android:src="@drawable/icon_home" />
+
+    <RelativeLayout
+        android:id="@+id/rl_perfume_bottle_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/widget_size_120"
+        android:layout_marginTop="@dimen/widget_size_120"
+        android:layout_toEndOf="@+id/iv_perfume_bottle_model">
+
+        <ImageView
+            android:id="@+id/iv_perfume_bottle_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon_perfume_bottle_first" />
+
+        <RadioButton
+            android:id="@+id/rb_perfume_bottle_first"
+            style="@style/CustomRadioButtonTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_perfume_bottle_first"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rb_perfume_bottle_first"
+            android:layout_centerHorizontal="true"
+            android:text="@string/nature"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_20" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_perfume_bottle_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/widget_size_80"
+        android:layout_marginTop="@dimen/widget_size_125"
+        android:layout_toEndOf="@+id/rl_perfume_bottle_first">
+
+        <ImageView
+            android:id="@+id/iv_perfume_bottle_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon_perfume_bottle_second" />
+
+        <RadioButton
+            android:id="@+id/rb_perfume_bottle_second"
+            style="@style/CustomRadioButtonTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_perfume_bottle_second"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rb_perfume_bottle_second"
+            android:layout_centerHorizontal="true"
+            android:text="@string/flower_fruit"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_20" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_perfume_bottle_third"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/widget_size_70"
+        android:layout_marginTop="@dimen/widget_size_130"
+        android:layout_toEndOf="@+id/rl_perfume_bottle_second">
+
+        <ImageView
+            android:id="@+id/iv_perfume_bottle_third"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon_perfume_bottle_third" />
+
+        <RadioButton
+            android:id="@+id/rb_perfume_bottle_third"
+            style="@style/CustomRadioButtonTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_perfume_bottle_third"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rb_perfume_bottle_third"
+            android:layout_centerHorizontal="true"
+            android:text="@string/lavender"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_20" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_fragrance_concentration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/widget_size_110"
+        android:layout_marginTop="@dimen/widget_size_50"
+        android:layout_toEndOf="@+id/rl_perfume_bottle_third">
+
+        <ImageView
+            android:id="@+id/iv_fragrance_concentration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_fragrance_concentration_default" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/widget_size_20"
+            android:layout_toEndOf="@+id/iv_fragrance_concentration"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_fragrance_concentration_high"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragrance_concentration_high"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_20" />
+
+            <TextView
+                android:id="@+id/tv_fragrance_concentration_middle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/widget_size_80"
+                android:text="@string/fragrance_concentration_middle"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_20" />
+
+            <TextView
+                android:id="@+id/tv_fragrance_concentration_low"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/widget_size_80"
+                android:text="@string/fragrance_concentration_low"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_20" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_fragrance_concentration"
+            android:layout_marginStart="@dimen/widget_size_10"
+            android:layout_marginTop="@dimen/widget_size_20"
+            android:text="@string/fragrance_concentration"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_20" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_welcome_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/widget_size_400"
+        android:layout_marginTop="@dimen/widget_size_20">
+
+        <ImageView
+            android:id="@+id/iv_welcome"
+            android:layout_width="@dimen/widget_size_50"
+            android:layout_height="@dimen/widget_size_50"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon_welcome_unable" />
+
+        <TextView
+            android:id="@+id/tv_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_welcome"
+            android:layout_centerHorizontal="true"
+            android:text="@string/welcome_mode"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_20" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_long_distance_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/widget_size_90"
+        android:layout_marginTop="@dimen/widget_size_20"
+        android:layout_toEndOf="@+id/rl_welcome_mode">
+
+        <ImageView
+            android:id="@+id/iv_long_distance"
+            android:layout_width="@dimen/widget_size_50"
+            android:layout_height="@dimen/widget_size_50"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon_long_distance_unable" />
+
+        <TextView
+            android:id="@+id/tv_long_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_long_distance"
+            android:layout_centerHorizontal="true"
+            android:text="@string/long_distance_mode"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_20" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_relax_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/widget_size_90"
+        android:layout_marginTop="@dimen/widget_size_20"
+        android:layout_toEndOf="@+id/rl_long_distance_mode">
+
+        <ImageView
+            android:id="@+id/iv_relax"
+            android:layout_width="@dimen/widget_size_50"
+            android:layout_height="@dimen/widget_size_50"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon_relax_unable" />
+
+        <TextView
+            android:id="@+id/tv_relax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_relax"
+            android:layout_centerHorizontal="true"
+            android:text="@string/relax_mode"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_20" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_switch_fragrance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/widget_size_50">
+
+        <CheckBox
+            android:id="@+id/cb_switch_fragrance"
+            style="@style/CustomCheckBoxTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/widget_size_20" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cb_switch_fragrance"
+            android:text="@string/fragrance_open"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_20" />
+    </RelativeLayout>
 
 </RelativeLayout>

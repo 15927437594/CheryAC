@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_air_purification">
+
+    <ImageView
+        android:id="@+id/iv_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/widget_size_20"
+        android:layout_marginBottom="@dimen/widget_size_20"
+        android:src="@drawable/icon_home" />
+
+    <LinearLayout
+        android:id="@+id/ll_car_outer_pm25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/widget_size_100"
+        android:layout_marginEnd="@dimen/widget_size_50"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/car_outer"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_20" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/pm25"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_20" />
+
+        <TextView
+            android:id="@+id/tv_outside_pm25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/widget_size_30"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_50" />
+
+        <TextView
+            android:id="@+id/tv_pollution_degree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/widget_size_30"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_20" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_purification_percent"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="1630dp"
+        android:layout_height="@dimen/widget_size_50"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/widget_size_100"
+        android:layout_marginBottom="@dimen/widget_size_20"
+        android:max="100"
+        android:progressDrawable="@drawable/progress_bar_back" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/widget_size_60"
+        android:layout_marginTop="@dimen/widget_size_100">
+
+        <LinearLayout
+            android:id="@+id/ll_car_inner_pm25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_car_inner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/car_inner"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/font_size_20" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_car_inner"
+                    android:text="@string/pm25"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/font_size_20" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_inside_pm25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/widget_size_30"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_50" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_air_quality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_car_inner_pm25"
+            android:layout_marginTop="@dimen/widget_size_5"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/air_quality"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_20" />
+
+            <TextView
+                android:id="@+id/tv_air_quality"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/widget_size_20"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_20" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_automatic_purification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_air_quality"
+            android:layout_marginTop="@dimen/widget_size_20"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/cb_switch_automatic_purification"
+                style="@style/CustomCheckBoxTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/automatic_purification"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_20" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_manual_purification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_automatic_purification"
+            android:layout_marginTop="@dimen/widget_size_10"
+            android:background="@drawable/selector_manual_purification"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/widget_size_30"
+                android:layout_marginTop="@dimen/widget_size_5"
+                android:layout_marginEnd="@dimen/widget_size_30"
+                android:layout_marginBottom="@dimen/widget_size_5"
+                android:text="@string/manual_purification"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_30" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

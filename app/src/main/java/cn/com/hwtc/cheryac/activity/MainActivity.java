@@ -1,47 +1,44 @@
 package cn.com.hwtc.cheryac.activity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import com.tmall.ultraviewpager.UltraViewPager;
-import com.tmall.ultraviewpager.transformer.UltraScaleTransformer;
 
 import java.util.ArrayList;
 
 import cn.com.hwtc.cheryac.R;
 import cn.com.hwtc.cheryac.adapter.UltraPagerAdapter;
-import cn.com.hwtc.cheryac.manager.StatusManager;
+import cn.com.hwtc.cheryac.manager.SystemPropertiesUtil;
+import cn.com.hwtc.cheryac.manager.UltraScaleTransformer;
 
 public class MainActivity extends BaseActivity implements UltraPagerAdapter.OnPositionClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
-    private Context mContext = null;
     private UltraViewPager ultraViewPager;
-    private StatusManager mStatusManager;
     private ArrayList<String> clsNameList;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected int createLayout(Bundle saveInstanceState) {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initView();
-        initEvent();
+        Log.d(TAG, "onCreate()");
+        SystemPropertiesUtil.setProperty("sys.usb.role", "device"); //System property need system permission
     }
 
     @Override
     protected void initView() {
-        super.initView();
         ultraViewPager = findViewById(R.id.ultra_viewpager);
     }
 
     @Override
     protected void initEvent() {
-        super.initEvent();
-        if (mContext == null) {
-            mContext = getApplicationContext();
-        }
         createClsList();
-        mStatusManager = StatusManager.getInstance();
         UltraPagerAdapter ultraPagerAdapter = new UltraPagerAdapter(mContext);
         ultraPagerAdapter.setOnPositionClickListener(this);
         ultraViewPager.setAdapter(ultraPagerAdapter);
@@ -52,7 +49,17 @@ public class MainActivity extends BaseActivity implements UltraPagerAdapter.OnPo
         ultraViewPager.setRatio(2.0f);
         ultraViewPager.setMaxHeight(720);
         ultraViewPager.setAutoMeasureHeight(true);
-        ultraViewPager.setPageTransformer(false, new UltraScaleTransformer());
+        UltraScaleTransformer ultraScaleTransformer = new UltraScaleTransformer(0.6f);
+        ultraViewPager.setPageTransformer(false, ultraScaleTransformer);
+        //ultraViewPager.setInfiniteLoop(true);//设置无限循环模式
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume()");
+        mStatusManager.setPanel(0);
+        mStatusManager.sendInfo(mContext);
     }
 
     private void createClsList() {
@@ -69,5 +76,20 @@ public class MainActivity extends BaseActivity implements UltraPagerAdapter.OnPo
         String clsName = clsNameList.get(position);
         Log.d(TAG, "clsName -> " + clsName);
         mStatusManager.startActivity(mContext, "cn.com.hwtc.cheryac", clsName);
+
+        int panel = 0;
+        if (position == 0) {
+            panel = 1;
+        } else if (position == 1) {
+            panel = 4;
+        } else if (position == 2) {
+            panel = 2;
+        } else if (position == 3) {
+            panel = 3;
+        }
+        mStatusManager.setPanel(panel);
+
+        mStatusManager.sendInfo(mContext);
     }
+
 }
