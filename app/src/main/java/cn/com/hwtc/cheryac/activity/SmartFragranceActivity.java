@@ -83,6 +83,16 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume()");
+        cbSwitchFragrance.setChecked(mStatusManager.getAutoFragranceSwitch() == 1);
+        updateFragranceMode();
+        updateFragranceConcentration();
+        updateFragranceType();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy()");
@@ -128,6 +138,23 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
             ivFragranceConcentration.setImageDrawable(getResources().getDrawable(R.drawable.icon_fragrance_concentration_middle));
         } else if (mStatusManager.getFragranceConcentration() == 3) {
             ivFragranceConcentration.setImageDrawable(getResources().getDrawable(R.drawable.icon_fragrance_concentration_high));
+        }
+    }
+
+    private void updateFragranceType() {
+        Log.d(TAG, "updateFragranceType -> " + mStatusManager.getFragranceType());
+        if (mStatusManager.getFragranceType() == 1) {
+            rbPerfumeBottleFirst.setChecked(true);
+            rbPerfumeBottleSecond.setChecked(false);
+            rbPerfumeBottleThird.setChecked(false);
+        } else if (mStatusManager.getFragranceType() == 2) {
+            rbPerfumeBottleFirst.setChecked(false);
+            rbPerfumeBottleSecond.setChecked(true);
+            rbPerfumeBottleThird.setChecked(false);
+        } else if (mStatusManager.getFragranceType() == 3) {
+            rbPerfumeBottleFirst.setChecked(false);
+            rbPerfumeBottleSecond.setChecked(false);
+            rbPerfumeBottleThird.setChecked(true);
         }
     }
 
@@ -184,24 +211,32 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
                 }
                 break;
             case R.id.tv_fragrance_concentration_high:
+                mStatusManager.setFragranceMode(0);
                 mStatusManager.setFragranceConcentration(3);
+                updateFragranceMode();
                 updateFragranceConcentration();
                 mStatusManager.sendInfo(mContext);
                 mStatusManager.setAutoControlPurification(false);
                 break;
             case R.id.tv_fragrance_concentration_middle:
+                mStatusManager.setFragranceMode(0);
                 mStatusManager.setFragranceConcentration(2);
+                updateFragranceMode();
                 updateFragranceConcentration();
                 mStatusManager.sendInfo(mContext);
                 mStatusManager.setAutoControlPurification(false);
                 break;
             case R.id.tv_fragrance_concentration_low:
+                mStatusManager.setFragranceMode(0);
                 mStatusManager.setFragranceConcentration(1);
+                updateFragranceMode();
                 updateFragranceConcentration();
                 mStatusManager.sendInfo(mContext);
                 mStatusManager.setAutoControlPurification(false);
                 break;
             case R.id.iv_fragrance_concentration:
+                mStatusManager.setFragranceMode(0);
+
                 if (mStatusManager.getFragranceConcentration() == 0) {
                     mStatusManager.setFragranceConcentration(1);
                 } else if (mStatusManager.getFragranceConcentration() == 1) {
@@ -211,9 +246,11 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
                 } else if (mStatusManager.getFragranceConcentration() == 3) {
                     mStatusManager.setFragranceConcentration(1);
                 }
+
+                updateFragranceMode();
                 updateFragranceConcentration();
-                mStatusManager.setFragranceMode(0);
                 mStatusManager.sendInfo(mContext);
+                mStatusManager.setAutoControlPurification(false);
                 break;
             default:
                 break;
@@ -231,32 +268,36 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
             case R.id.rb_perfume_bottle_first:
                 Log.d(TAG, "onCheckedChanged rb_perfume_bottle_first -> " + b);
                 if (b) {
-                    rbPerfumeBottleSecond.setChecked(false);
-                    rbPerfumeBottleThird.setChecked(false);
-                    mStatusManager.setFragranceType(1);
+                    if (mStatusManager.getFragranceType() != 1) {
+                        mStatusManager.setFragranceType(1);
+                        updateFragranceType();
+                        mStatusManager.sendInfo(mContext);
+                    }
                 }
-                mStatusManager.sendInfo(mContext);
                 break;
             case R.id.rb_perfume_bottle_second:
                 Log.d(TAG, "onCheckedChanged rb_perfume_bottle_second -> " + b);
                 if (b) {
-                    rbPerfumeBottleFirst.setChecked(false);
-                    rbPerfumeBottleThird.setChecked(false);
-                    mStatusManager.setFragranceType(2);
+                    if (mStatusManager.getFragranceType() != 2) {
+                        mStatusManager.setFragranceType(2);
+                        updateFragranceType();
+                        mStatusManager.sendInfo(mContext);
+                    }
                 }
-                mStatusManager.sendInfo(mContext);
                 break;
             case R.id.rb_perfume_bottle_third:
                 Log.d(TAG, "onCheckedChanged rb_perfume_bottle_third -> " + b);
                 if (b) {
-                    rbPerfumeBottleFirst.setChecked(false);
-                    rbPerfumeBottleSecond.setChecked(false);
-                    mStatusManager.setFragranceType(3);
+                    if (mStatusManager.getFragranceType() != 3) {
+                        mStatusManager.setFragranceType(3);
+                        updateFragranceType();
+                        mStatusManager.sendInfo(mContext);
+                    }
                 }
-                mStatusManager.sendInfo(mContext);
                 break;
             default:
                 break;
         }
     }
+
 }

@@ -11,6 +11,8 @@ import android.view.KeyEvent;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
+import cn.com.hwtc.cheryac.R;
+
 /**
  * user: Created by jid on 2019/9/2.
  * email: jid@hwtc.com.cn
@@ -42,7 +44,7 @@ public class StatusManager {
     private int manualPurificationSwitch = 0; //手动净化开关状态
     private int panel = 0; //画面选择
     private int autoPurificationSwitch = 0; //自动净化开关状态
-    private int fragranceType = 0; //香氛类型
+    private int fragranceType = 1; //香氛类型
     private int fragranceMode = 0; //香氛模式
     private int fragranceConcentration = 0; //香氛浓度
     private int carbonDioxideAutoMonitorSwitch = 0; //CO2自动检测开关状态
@@ -50,6 +52,11 @@ public class StatusManager {
     private int autoFragranceSwitch = 0; //智能香氛开关状态
     private boolean defogCompleted = false; //是否除雾完成
     private boolean autoControlPurification = false; //香氛自动控制标志
+    private int riseState = 0; //CO2浓度的上升状态
+
+    private int fogProbability = 0; //起雾概率
+    private int purificationPercent = 0; //空气净化率
+    private boolean humidUpState = true; //湿度值的上升状态
 
     private OnUpdateAirPurificationCallback mOnUpdateAirPurificationCallback;
     private OnUpdateVitalSignsCallback mOnUpdateVitalSignsCallback;
@@ -177,6 +184,14 @@ public class StatusManager {
 
     public void setHumidSensor(int humidSensor) {
         this.humidSensor = humidSensor;
+    }
+
+    public boolean getHumidUpState() {
+        return humidUpState;
+    }
+
+    public void setHumidUpState(boolean humidUpState) {
+        this.humidUpState = humidUpState;
     }
 
     public int getHumidTempError() {
@@ -356,6 +371,30 @@ public class StatusManager {
         this.autoControlPurification = autoControlPurification;
     }
 
+    public int getRiseState() {
+        return riseState;
+    }
+
+    public void setRiseState(int riseState) {
+        this.riseState = riseState;
+    }
+
+    public int getFogProbability() {
+        return fogProbability;
+    }
+
+    public void setFogProbability(int fogProbability) {
+        this.fogProbability = fogProbability;
+    }
+
+    public int getPurificationPercent() {
+        return purificationPercent;
+    }
+
+    public void setPurificationPercent(int purificationPercent) {
+        this.purificationPercent = purificationPercent;
+    }
+
     /**
      * 如果此时下拉框处于显示状态,则隐藏下拉框
      *
@@ -435,27 +474,57 @@ public class StatusManager {
     }
 
     private int calculateFogProbability(int humidSensor) {
+        Log.d(TAG, "calculateFogProbability humidSensor -> " + humidSensor);
         int fogProbability;
         if (humidSensor < 45) {
             fogProbability = 0;
         } else if (humidSensor <= 75) {
-            fogProbability = (humidSensor - 45) / (75 - 45) * 100;
+            double d1 = humidSensor - 45;
+            double d2 = (75 - 45);
+            fogProbability = (int) (d1 / d2 * 100);
+            Log.d(TAG, "calculateFogProbability fogProbability -> " + fogProbability);
         } else {
             fogProbability = 100;
         }
         return fogProbability;
     }
 
+    public String getPollutionDegree(Context context, int pm25) {
+        String pollutionDegree = "";
+        if (pm25 >= 0 & pm25 <= 50) {
+            pollutionDegree = context.getString(R.string.excellent);
+        } else if (pm25 >= 51 & pm25 <= 100) {
+            pollutionDegree = context.getString(R.string.good);
+        } else if (pm25 >= 101 & pm25 <= 150) {
+            pollutionDegree = context.getString(R.string.mild_pollution);
+        } else if (pm25 >= 151 & pm25 <= 200) {
+            pollutionDegree = context.getString(R.string.middle_pollution);
+        } else if (pm25 >= 201 & pm25 <= 300) {
+            pollutionDegree = context.getString(R.string.severe_pollution);
+        } else if (pm25 >= 301) {
+            pollutionDegree = context.getString(R.string.serious_pollution);
+        }
+
+        return pollutionDegree;
+    }
+
     public void updatePurification() {
         if (mOnUpdateAirPurificationCallback != null) {
-            int percent = (outsidePm25 - insidePm25) / (outsidePm25 - pm25Ref) * 100;
-            mOnUpdateAirPurificationCallback.updatePurificationPercent(percent);
+            Log.d(TAG, "updatePurification outsidePm25 " + outsidePm25);
+            Log.d(TAG, "updatePurification insidePm25 " + insidePm25);
+            Log.d(TAG, "updatePurification pm25Ref " + pm25Ref);
+            double d1 = outsidePm25 - insidePm25;
+            double d2 = outsidePm25 - pm25Ref;
+            int percent = (int) (d1 / d2 * 100);
+            Log.d(TAG, "updatePurification percent " + percent);
+            setPurificationPercent(percent);
+            mOnUpdateAirPurificationCallback.updatePurificationPercent(outsidePm25, insidePm25, percent);
         }
     }
 
     public void updateCarbonDioxideLevel() {
         if (mOnUpdateVitalSignsCallback != null) {
-            mOnUpdateVitalSignsCallback.updateCarbonDioxide(carbonDioxideLevel);
+            mOnUpdateVitalSignsCallback.updateCarbonDioxide(riseState, carbonDioxideLevel);
         }
     }
 
@@ -467,24 +536,25 @@ public class StatusManager {
 
     public void updateHumidity() {
         if (mOnUpdateAutoDefogCallback != null) {
-            mOnUpdateAutoDefogCallback.updateCurrentHumidity(humidSensor);
+            mOnUpdateAutoDefogCallback.updateCurrentHumidity(humidUpState, humidSensor);
             int fogProbability = calculateFogProbability(humidSensor);
+            setFogProbability(fogProbability);
             mOnUpdateAutoDefogCallback.updateFogProbability(fogProbability);
         }
     }
 
     public interface OnUpdateAirPurificationCallback {
-        void updatePurificationPercent(int percent);
+        void updatePurificationPercent(int outsidePm25, int insidePm25, int percent);
     }
 
     public interface OnUpdateVitalSignsCallback {
-        void updateCarbonDioxide(int level);
+        void updateCarbonDioxide(int riseState, int level);
 
         void updateMonitorAction(boolean informMaster, boolean sendInsidePhoto, boolean openInsideCamera, boolean openVenSystem);
     }
 
     public interface OnUpdateAutoDefogCallback {
-        void updateCurrentHumidity(int humidity);
+        void updateCurrentHumidity(boolean humidUpState, int humidity);
 
         void updateFogProbability(int fogProbability);
     }
