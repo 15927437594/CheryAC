@@ -268,25 +268,31 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
             case R.id.rb_perfume_bottle_first:
                 Log.d(TAG, "onCheckedChanged rb_perfume_bottle_first -> " + b);
                 if (b) {
-                    mStatusManager.setFragranceType(1);
-                    updateFragranceType();
-                    mStatusManager.sendInfo(mContext);
+                    if (mStatusManager.getFragranceType() != 1) {
+                        mStatusManager.setFragranceType(1);
+                        updateFragranceType();
+                        mStatusManager.sendInfo(mContext);
+                    }
                 }
                 break;
             case R.id.rb_perfume_bottle_second:
                 Log.d(TAG, "onCheckedChanged rb_perfume_bottle_second -> " + b);
                 if (b) {
-                    mStatusManager.setFragranceType(2);
-                    updateFragranceType();
-                    mStatusManager.sendInfo(mContext);
+                    if (mStatusManager.getFragranceType() != 2) {
+                        mStatusManager.setFragranceType(2);
+                        updateFragranceType();
+                        mStatusManager.sendInfo(mContext);
+                    }
                 }
                 break;
             case R.id.rb_perfume_bottle_third:
                 Log.d(TAG, "onCheckedChanged rb_perfume_bottle_third -> " + b);
                 if (b) {
-                    mStatusManager.setFragranceType(3);
-                    updateFragranceType();
-                    mStatusManager.sendInfo(mContext);
+                    if (mStatusManager.getFragranceType() != 3) {
+                        mStatusManager.setFragranceType(3);
+                        updateFragranceType();
+                        mStatusManager.sendInfo(mContext);
+                    }
                 }
                 break;
             default:

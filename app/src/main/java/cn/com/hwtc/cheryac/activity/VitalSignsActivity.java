@@ -141,12 +141,12 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
 
         if (riseState == 2) {
             if (level > 0 & level < 8) {
-                llInsideAirFresh.setVisibility(View.VISIBLE);
                 tvOpenVentilationSystem.setVisibility(View.INVISIBLE);
                 tvOpenInsideCamera.setVisibility(View.INVISIBLE);
                 tvInformMaster.setVisibility(View.INVISIBLE);
                 tvSendInsidePhoto.setVisibility(View.INVISIBLE);
-
+                llAiRobot.setVisibility(View.INVISIBLE);
+                llInsideAirFresh.setVisibility(View.VISIBLE);
                 tvVitalSigns.setText("");
             } else if (level >= 8 & level < 18) {
                 llAiRobot.setVisibility(View.INVISIBLE);

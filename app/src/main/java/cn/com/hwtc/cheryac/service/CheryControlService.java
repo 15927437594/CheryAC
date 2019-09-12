@@ -113,6 +113,7 @@ public class CheryControlService extends Service {
                 mStatusManager.setOutsidePm25Valid(dataInt[6]);
                 mStatusManager.setInsidePm25(dataInt[7] << 8 | dataInt[8]);
                 mStatusManager.setInsidePm25Valid(dataInt[9]);
+                mStatusManager.setHumidUpState(dataInt[10] > mStatusManager.getHumidSensor());
                 mStatusManager.setHumidSensor(dataInt[10]);
                 mStatusManager.setHumidTempError(dataInt[11]);
                 mStatusManager.setCarbonDioxideWarning(dataInt[12]);

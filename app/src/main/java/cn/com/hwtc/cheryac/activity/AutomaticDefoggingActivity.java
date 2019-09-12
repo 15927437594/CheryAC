@@ -53,7 +53,7 @@ public class AutomaticDefoggingActivity extends BaseActivity implements View.OnC
         Log.d(TAG, "onResume()");
         cbSwitchAutomaticDefog.setChecked(mStatusManager.getAutoMistSwitch() == 1);
         updateFogProbability(mStatusManager.getFogProbability());
-        updateCurrentHumidity(mStatusManager.getHumidSensor());
+        updateCurrentHumidity(mStatusManager.getHumidUpState(), mStatusManager.getHumidSensor());
     }
 
     @Override
@@ -68,19 +68,21 @@ public class AutomaticDefoggingActivity extends BaseActivity implements View.OnC
     }
 
     @Override
-    public void updateCurrentHumidity(int humidity) {
+    public void updateCurrentHumidity(boolean humidUpState, int humidity) {
         Log.d(TAG, "updateCurrentHumidity -> " + humidity);
         // TODO: 2019/9/10 如果是从75以上降低到45以下,则显示除雾已完成,如果再从45以下上升到60以上,则隐藏除雾已完成
         //开启自动除雾状态下
         if (mStatusManager.getAutoMistSwitch() == 1) {
-            if (humidity < 45) {
+            if (!humidUpState & humidity < 45) {
                 if (mStatusManager.getDefogCompleted()) {
                     rlDefogOk.setVisibility(View.VISIBLE);
+                    tvMistTip.setVisibility(View.INVISIBLE);
                 }
             } else if (humidity > 75) {
                 // TODO: 2019/9/8 开始识别是否除雾已完成
                 mStatusManager.setDefogCompleted(true);
-            } else if (humidity > 60) {
+                tvMistTip.setVisibility(View.VISIBLE);
+            } else if (humidUpState & humidity > 60) {
                 mStatusManager.setDefogCompleted(false);
                 rlDefogOk.setVisibility(View.INVISIBLE);
             }

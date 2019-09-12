@@ -44,7 +44,7 @@ public class StatusManager {
     private int manualPurificationSwitch = 0; //手动净化开关状态
     private int panel = 0; //画面选择
     private int autoPurificationSwitch = 0; //自动净化开关状态
-    private int fragranceType = 0; //香氛类型
+    private int fragranceType = 1; //香氛类型
     private int fragranceMode = 0; //香氛模式
     private int fragranceConcentration = 0; //香氛浓度
     private int carbonDioxideAutoMonitorSwitch = 0; //CO2自动检测开关状态
@@ -56,6 +56,7 @@ public class StatusManager {
 
     private int fogProbability = 0; //起雾概率
     private int purificationPercent = 0; //空气净化率
+    private boolean humidUpState = true; //湿度值的上升状态
 
     private OnUpdateAirPurificationCallback mOnUpdateAirPurificationCallback;
     private OnUpdateVitalSignsCallback mOnUpdateVitalSignsCallback;
@@ -183,6 +184,14 @@ public class StatusManager {
 
     public void setHumidSensor(int humidSensor) {
         this.humidSensor = humidSensor;
+    }
+
+    public boolean getHumidUpState() {
+        return humidUpState;
+    }
+
+    public void setHumidUpState(boolean humidUpState) {
+        this.humidUpState = humidUpState;
     }
 
     public int getHumidTempError() {
@@ -527,7 +536,7 @@ public class StatusManager {
 
     public void updateHumidity() {
         if (mOnUpdateAutoDefogCallback != null) {
-            mOnUpdateAutoDefogCallback.updateCurrentHumidity(humidSensor);
+            mOnUpdateAutoDefogCallback.updateCurrentHumidity(humidUpState, humidSensor);
             int fogProbability = calculateFogProbability(humidSensor);
             setFogProbability(fogProbability);
             mOnUpdateAutoDefogCallback.updateFogProbability(fogProbability);
@@ -545,7 +554,7 @@ public class StatusManager {
     }
 
     public interface OnUpdateAutoDefogCallback {
-        void updateCurrentHumidity(int humidity);
+        void updateCurrentHumidity(boolean humidUpState, int humidity);
 
         void updateFogProbability(int fogProbability);
     }

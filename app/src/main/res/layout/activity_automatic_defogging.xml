@@ -87,7 +87,8 @@
             android:layout_centerHorizontal="true"
             android:text="@string/start_automatic_defog"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/font_size_20" />
+            android:textSize="@dimen/font_size_20"
+            android:visibility="invisible" />
     </RelativeLayout>
 
     <RelativeLayout
