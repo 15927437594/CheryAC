@@ -3,6 +3,10 @@ package cn.com.hwtc.cheryac.activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.ScaleAnimation;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -37,6 +41,7 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
     private TextView tvFragranceConcentrationMiddle;
     private TextView tvFragranceConcentrationLow;
     private ImageView ivFragranceConcentration;
+    private ImageView ivPerfumeBottlePetals;
 
     @Override
     protected int createLayout(Bundle saveInstanceState) {
@@ -63,6 +68,7 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
         tvFragranceConcentrationMiddle = findViewById(R.id.tv_fragrance_concentration_middle);
         tvFragranceConcentrationLow = findViewById(R.id.tv_fragrance_concentration_low);
         ivFragranceConcentration = findViewById(R.id.iv_fragrance_concentration);
+        ivPerfumeBottlePetals = findViewById(R.id.iv_perfume_bottle_petals);
     }
 
     @Override
@@ -143,7 +149,11 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
 
     private void updateFragranceType() {
         Log.d(TAG, "updateFragranceType -> " + mStatusManager.getFragranceType());
-        if (mStatusManager.getFragranceType() == 1) {
+        if (mStatusManager.getFragranceType() == 0) {
+            rbPerfumeBottleFirst.setChecked(false);
+            rbPerfumeBottleSecond.setChecked(false);
+            rbPerfumeBottleThird.setChecked(false);
+        } else if (mStatusManager.getFragranceType() == 1) {
             rbPerfumeBottleFirst.setChecked(true);
             rbPerfumeBottleSecond.setChecked(false);
             rbPerfumeBottleThird.setChecked(false);
@@ -180,6 +190,21 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
         }
     };
 
+    private Runnable mAnimationRunnable = new Runnable() {
+        @Override
+        public void run() {
+            Log.d(TAG, "call mAnimationRunnable");
+            ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f, 1.0f, 0.8f, 1.0f);
+            scaleAnimation.setDuration(500L);
+            scaleAnimation.setRepeatMode(Animation.RESTART);
+            scaleAnimation.setRepeatCount(Animation.INFINITE);
+            ivPerfumeBottlePetals.startAnimation(scaleAnimation);
+
+            Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.rotate_animation);
+            animation.setInterpolator(new LinearInterpolator());
+        }
+    };
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -187,25 +212,34 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
                 mStatusManager.onBack();
                 break;
             case R.id.rl_welcome_mode:
+                //开启自动模式时,将香氛类型置为空(信号值为0)
                 if (mStatusManager.getFragranceMode() != 1) {
                     mStatusManager.setFragranceMode(1);
                     updateFragranceMode();
+                    mStatusManager.setFragranceType(0);
+                    updateFragranceType();
                     mStatusManager.sendInfo(mContext);
                     mStatusManager.setAutoControlPurification(true);
                 }
                 break;
             case R.id.rl_long_distance_mode:
+                //开启自动模式时,将香氛类型置为空(信号值为0)
                 if (mStatusManager.getFragranceMode() != 2) {
                     mStatusManager.setFragranceMode(2);
                     updateFragranceMode();
+                    mStatusManager.setFragranceType(0);
+                    updateFragranceType();
                     mStatusManager.sendInfo(mContext);
                     mStatusManager.setAutoControlPurification(true);
                 }
                 break;
             case R.id.rl_relax_mode:
+                //开启自动模式时,将香氛类型置为空(信号值为0)
                 if (mStatusManager.getFragranceMode() != 3) {
                     mStatusManager.setFragranceMode(3);
                     updateFragranceMode();
+                    mStatusManager.setFragranceType(0);
+                    updateFragranceType();
                     mStatusManager.sendInfo(mContext);
                     mStatusManager.setAutoControlPurification(true);
                 }
@@ -264,34 +298,57 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
                 Log.d(TAG, "onCheckedChanged cb_switch_fragrance -> " + b);
                 mStatusManager.setAutoFragranceSwitch(b ? 1 : 0);
                 mStatusManager.sendInfo(mContext);
+                // TODO: 2019/9/12 功能添加
+                //香氛开启:花朵从10%的大小开始逐渐放大至100%后,在80%~100%持续循环;放大过程中,同步旋转,旋转角速度15度/秒,旋转持续
+                //香氛结束:静态显示
+                if (b) {
+                    ScaleAnimation scaleAnimation = new ScaleAnimation(0.1f, 1.0f, 0.1f, 1.0f);
+                    scaleAnimation.setDuration(1000L);
+                    ivPerfumeBottlePetals.startAnimation(scaleAnimation);
+                    mHandler.postDelayed(mAnimationRunnable, 1000L);
+                } else {
+
+                }
                 break;
             case R.id.rb_perfume_bottle_first:
                 Log.d(TAG, "onCheckedChanged rb_perfume_bottle_first -> " + b);
+                //点击香氛类型时,将自动模式切换为手动模式
                 if (b) {
                     if (mStatusManager.getFragranceType() != 1) {
                         mStatusManager.setFragranceType(1);
                         updateFragranceType();
+                        mStatusManager.setFragranceMode(0);
+                        updateFragranceMode();
                         mStatusManager.sendInfo(mContext);
+                        mStatusManager.setAutoControlPurification(false);
                     }
                 }
                 break;
             case R.id.rb_perfume_bottle_second:
                 Log.d(TAG, "onCheckedChanged rb_perfume_bottle_second -> " + b);
+                //点击香氛类型时,将自动模式切换为手动模式
                 if (b) {
                     if (mStatusManager.getFragranceType() != 2) {
                         mStatusManager.setFragranceType(2);
                         updateFragranceType();
+                        mStatusManager.setFragranceMode(0);
+                        updateFragranceMode();
                         mStatusManager.sendInfo(mContext);
+                        mStatusManager.setAutoControlPurification(false);
                     }
                 }
                 break;
             case R.id.rb_perfume_bottle_third:
                 Log.d(TAG, "onCheckedChanged rb_perfume_bottle_third -> " + b);
+                //点击香氛类型时,将自动模式切换为手动模式
                 if (b) {
                     if (mStatusManager.getFragranceType() != 3) {
                         mStatusManager.setFragranceType(3);
                         updateFragranceType();
+                        mStatusManager.setFragranceMode(0);
+                        updateFragranceMode();
                         mStatusManager.sendInfo(mContext);
+                        mStatusManager.setAutoControlPurification(false);
                     }
                 }
                 break;

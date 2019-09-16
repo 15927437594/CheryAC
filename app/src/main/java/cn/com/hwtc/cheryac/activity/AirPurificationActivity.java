@@ -90,8 +90,12 @@ public class AirPurificationActivity extends BaseActivity implements View.OnClic
             case R.id.cb_switch_automatic_purification:
                 Log.d(TAG, "onCheckedChanged cb_switch_automatic_purification -> " + b);
                 mStatusManager.setAutoPurificationSwitch(b ? 1 : 0);
-                llManualPurification.setEnabled(!b);
+                if (b) {
+                    //开启自动净化时默认关闭手动净化
+                    mStatusManager.setManualPurificationSwitch(0);
+                }
                 mStatusManager.sendInfo(mContext);
+                llManualPurification.setEnabled(!b);
                 break;
             default:
                 break;
@@ -111,7 +115,7 @@ public class AirPurificationActivity extends BaseActivity implements View.OnClic
             mStatusManager.setManualPurificationSwitch(0);
             mStatusManager.sendInfo(mContext);
         }
-        // TODO: 2019/9/10 根据车内pm25(优良恶劣)和车外pm25判断环境标准(重度污染中度污染轻度污染)
+        // TODO: 2019/9/10 根据车内pm25和车外pm25判断环境标准(优良重度污染中度污染轻度污染)
         tvAirQuality.setText(mStatusManager.getPollutionDegree(mContext, insidePm25));
         tvPollutionDegree.setText(mStatusManager.getPollutionDegree(mContext, outsidePm25));
     }
