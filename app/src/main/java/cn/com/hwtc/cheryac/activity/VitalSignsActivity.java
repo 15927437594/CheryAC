@@ -112,7 +112,7 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
         @Override
         public void run() {
             Log.d(TAG, "call mAiRobotRunnable");
-            mHandler.postDelayed(this, 1000L);
+            mHandler.postDelayed(this, 500L);
             if (mStatusManager.getCarbonDioxideLevel() >= 38) {
                 if (llAiRobot.getVisibility() == View.VISIBLE) {
                     llAiRobot.setVisibility(View.INVISIBLE);
@@ -164,6 +164,11 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
                 llAiRobot.setVisibility(View.INVISIBLE);
                 llInsideAirFresh.setVisibility(View.VISIBLE);
                 tvVitalSigns.setText("");
+
+                ivInformMaster.setVisibility(View.INVISIBLE);
+                ivSendInsidePhoto.setVisibility(View.INVISIBLE);
+                ivOpenInsideCamera.setVisibility(View.INVISIBLE);
+                ivOpenVentilationSystem.setVisibility(View.INVISIBLE);
             } else if (level >= 8 & level < 18) {
                 llAiRobot.setVisibility(View.INVISIBLE);
                 llInsideAirFresh.setVisibility(View.INVISIBLE);
@@ -239,6 +244,11 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
             } else if (level == 7) {
                 llAiRobot.setVisibility(View.INVISIBLE);
                 tvVitalSigns.setText(getString(R.string.monitor_vital_signs_8));
+
+                ivInformMaster.setVisibility(View.INVISIBLE);
+                ivSendInsidePhoto.setVisibility(View.INVISIBLE);
+                ivOpenInsideCamera.setVisibility(View.INVISIBLE);
+                ivOpenVentilationSystem.setVisibility(View.INVISIBLE);
             } else {
                 llAiRobot.setVisibility(View.INVISIBLE);
                 llInsideAirFresh.setVisibility(View.VISIBLE);
@@ -247,6 +257,11 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
                 tvInformMaster.setVisibility(View.INVISIBLE);
                 tvSendInsidePhoto.setVisibility(View.INVISIBLE);
                 tvVitalSigns.setText("");
+
+                ivInformMaster.setVisibility(View.INVISIBLE);
+                ivSendInsidePhoto.setVisibility(View.INVISIBLE);
+                ivOpenInsideCamera.setVisibility(View.INVISIBLE);
+                ivOpenVentilationSystem.setVisibility(View.INVISIBLE);
             }
         }
     }

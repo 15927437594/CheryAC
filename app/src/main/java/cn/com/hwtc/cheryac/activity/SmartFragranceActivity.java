@@ -5,8 +5,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.ScaleAnimation;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -194,14 +192,8 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
         @Override
         public void run() {
             Log.d(TAG, "call mAnimationRunnable");
-            ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f, 1.0f, 0.8f, 1.0f);
-            scaleAnimation.setDuration(500L);
-            scaleAnimation.setRepeatMode(Animation.RESTART);
-            scaleAnimation.setRepeatCount(Animation.INFINITE);
-            ivPerfumeBottlePetals.startAnimation(scaleAnimation);
-
-            Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.rotate_animation);
-            animation.setInterpolator(new LinearInterpolator());
+            Animation animationRepeat = AnimationUtils.loadAnimation(mContext, R.anim.mix_animation);
+            ivPerfumeBottlePetals.startAnimation(animationRepeat);
         }
     };
 
@@ -302,12 +294,15 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
                 //香氛开启:花朵从10%的大小开始逐渐放大至100%后,在80%~100%持续循环;放大过程中,同步旋转,旋转角速度15度/秒,旋转持续
                 //香氛结束:静态显示
                 if (b) {
-                    ScaleAnimation scaleAnimation = new ScaleAnimation(0.1f, 1.0f, 0.1f, 1.0f);
-                    scaleAnimation.setDuration(1000L);
-                    ivPerfumeBottlePetals.startAnimation(scaleAnimation);
+//                    ScaleAnimation scaleAnimation = new ScaleAnimation(0.1f, 1.0f, 0.1f, 1.0f);
+//                    scaleAnimation.setDuration(1000L);
+//                    ivPerfumeBottlePetals.startAnimation(scaleAnimation);
+                    Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.scale_animation);
+                    ivPerfumeBottlePetals.startAnimation(animation);
                     mHandler.postDelayed(mAnimationRunnable, 1000L);
                 } else {
-
+                    ivPerfumeBottlePetals.clearAnimation();
+                    mHandler.removeCallbacks(mAnimationRunnable);
                 }
                 break;
             case R.id.rb_perfume_bottle_first:
