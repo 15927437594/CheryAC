@@ -104,7 +104,7 @@ public class CheryControlService extends Service {
 
                 Log.d(TAG, "onReceive dataInt -> " + Arrays.toString(dataInt));
                 if (dataInt[0] > 0) {
-                    mStatusManager.setPm25Ref(dataInt[0]);
+                    mStatusManager.setPm25Ref(dataInt[0] * 10);
                 }
                 mStatusManager.setRiseState(dataInt[1]);
                 mStatusManager.setPm25Warning(dataInt[2]);

@@ -27,6 +27,7 @@
         android:src="@drawable/icon_perfume_bottle_model" />
 
     <ImageView
+        android:id="@+id/iv_perfume_bottle_petals"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/widget_size_205"

@@ -74,6 +74,7 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
         ivHome.setOnClickListener(this);
         cbSwitchAutomaticMonitor.setOnCheckedChangeListener(this);
         mStatusManager.setOnUpdateVitalSignsCallback(this);
+        mHandler.postDelayed(mAiRobotRunnable, 1000L); //以1s的频率红色字闪烁
     }
 
     @Override
@@ -106,6 +107,21 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
                 break;
         }
     }
+
+    private Runnable mAiRobotRunnable = new Runnable() {
+        @Override
+        public void run() {
+            Log.d(TAG, "call mAiRobotRunnable");
+            mHandler.postDelayed(this, 500L);
+            if (mStatusManager.getCarbonDioxideLevel() >= 38) {
+                if (llAiRobot.getVisibility() == View.VISIBLE) {
+                    llAiRobot.setVisibility(View.INVISIBLE);
+                } else {
+                    llAiRobot.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+    };
 
     /**
      * riseState: 2表示上升,3表示下降
@@ -148,6 +164,10 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
                 llAiRobot.setVisibility(View.INVISIBLE);
                 llInsideAirFresh.setVisibility(View.VISIBLE);
                 tvVitalSigns.setText("");
+                ivInformMaster.setVisibility(View.INVISIBLE);
+                ivSendInsidePhoto.setVisibility(View.INVISIBLE);
+                ivOpenInsideCamera.setVisibility(View.INVISIBLE);
+                ivOpenVentilationSystem.setVisibility(View.INVISIBLE);
             } else if (level >= 8 & level < 18) {
                 llAiRobot.setVisibility(View.INVISIBLE);
                 llInsideAirFresh.setVisibility(View.INVISIBLE);
@@ -156,64 +176,58 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
                 tvOpenInsideCamera.setVisibility(View.VISIBLE);
                 tvInformMaster.setVisibility(View.VISIBLE);
                 tvSendInsidePhoto.setVisibility(View.VISIBLE);
-
                 tvVitalSigns.setText(getString(R.string.monitor_vital_signs_1));
             } else if (level >= 18 & level < 28) {
-                tvOpenVentilationSystem.setVisibility(View.INVISIBLE);
-                tvOpenInsideCamera.setVisibility(View.INVISIBLE);
-                tvInformMaster.setVisibility(View.INVISIBLE);
-                tvSendInsidePhoto.setVisibility(View.INVISIBLE);
                 llAiRobot.setVisibility(View.INVISIBLE);
                 llInsideAirFresh.setVisibility(View.INVISIBLE);
-
+                tvOpenVentilationSystem.setVisibility(View.VISIBLE);
+                tvOpenInsideCamera.setVisibility(View.VISIBLE);
+                tvInformMaster.setVisibility(View.VISIBLE);
+                tvSendInsidePhoto.setVisibility(View.VISIBLE);
                 tvVitalSigns.setText(getString(R.string.monitor_vital_signs_2));
             } else if (level >= 28 & level < 38) {
-                tvOpenVentilationSystem.setVisibility(View.INVISIBLE);
-                tvOpenInsideCamera.setVisibility(View.INVISIBLE);
-                tvInformMaster.setVisibility(View.INVISIBLE);
-                tvSendInsidePhoto.setVisibility(View.INVISIBLE);
                 llAiRobot.setVisibility(View.INVISIBLE);
                 llInsideAirFresh.setVisibility(View.INVISIBLE);
-
+                tvOpenVentilationSystem.setVisibility(View.VISIBLE);
+                tvOpenInsideCamera.setVisibility(View.VISIBLE);
+                tvInformMaster.setVisibility(View.VISIBLE);
+                tvSendInsidePhoto.setVisibility(View.VISIBLE);
                 tvVitalSigns.setText(getString(R.string.monitor_vital_signs_3));
             } else if (level >= 38) {
-                llInsideAirFresh.setVisibility(View.INVISIBLE);
-                tvOpenVentilationSystem.setVisibility(View.INVISIBLE);
-                tvOpenInsideCamera.setVisibility(View.INVISIBLE);
-                tvInformMaster.setVisibility(View.INVISIBLE);
-                tvSendInsidePhoto.setVisibility(View.INVISIBLE);
                 llAiRobot.setVisibility(View.VISIBLE);
-
+                llInsideAirFresh.setVisibility(View.INVISIBLE);
+                tvOpenVentilationSystem.setVisibility(View.VISIBLE);
+                tvOpenInsideCamera.setVisibility(View.VISIBLE);
+                tvInformMaster.setVisibility(View.VISIBLE);
+                tvSendInsidePhoto.setVisibility(View.VISIBLE);
                 tvVitalSigns.setText("");
             }
         } else if (riseState == 3) {
             if (level > 37) {
-                llInsideAirFresh.setVisibility(View.INVISIBLE);
-                tvOpenVentilationSystem.setVisibility(View.INVISIBLE);
-                tvOpenInsideCamera.setVisibility(View.INVISIBLE);
-                tvInformMaster.setVisibility(View.INVISIBLE);
-                tvSendInsidePhoto.setVisibility(View.INVISIBLE);
                 llAiRobot.setVisibility(View.VISIBLE);
+                llInsideAirFresh.setVisibility(View.INVISIBLE);
+                tvOpenVentilationSystem.setVisibility(View.VISIBLE);
+                tvOpenInsideCamera.setVisibility(View.VISIBLE);
+                tvInformMaster.setVisibility(View.VISIBLE);
+                tvSendInsidePhoto.setVisibility(View.VISIBLE);
                 tvVitalSigns.setText("");
-            } else if (level > 27 & level <= 37) {
-                tvOpenVentilationSystem.setVisibility(View.INVISIBLE);
-                tvOpenInsideCamera.setVisibility(View.INVISIBLE);
-                tvInformMaster.setVisibility(View.INVISIBLE);
-                tvSendInsidePhoto.setVisibility(View.INVISIBLE);
+            } else if (level > 27) {
                 llAiRobot.setVisibility(View.INVISIBLE);
                 llInsideAirFresh.setVisibility(View.INVISIBLE);
-
+                tvOpenVentilationSystem.setVisibility(View.VISIBLE);
+                tvOpenInsideCamera.setVisibility(View.VISIBLE);
+                tvInformMaster.setVisibility(View.VISIBLE);
+                tvSendInsidePhoto.setVisibility(View.VISIBLE);
                 tvVitalSigns.setText(getString(R.string.monitor_vital_signs_5));
-            } else if (level > 17 & level <= 27) {
-                tvOpenVentilationSystem.setVisibility(View.INVISIBLE);
-                tvOpenInsideCamera.setVisibility(View.INVISIBLE);
-                tvInformMaster.setVisibility(View.INVISIBLE);
-                tvSendInsidePhoto.setVisibility(View.INVISIBLE);
+            } else if (level > 17) {
+                tvOpenVentilationSystem.setVisibility(View.VISIBLE);
+                tvOpenInsideCamera.setVisibility(View.VISIBLE);
+                tvInformMaster.setVisibility(View.VISIBLE);
+                tvSendInsidePhoto.setVisibility(View.VISIBLE);
                 llAiRobot.setVisibility(View.INVISIBLE);
                 llInsideAirFresh.setVisibility(View.INVISIBLE);
-
                 tvVitalSigns.setText(getString(R.string.monitor_vital_signs_6));
-            } else if (level > 7 & level <= 17) {
+            } else if (level > 7) {
                 llAiRobot.setVisibility(View.INVISIBLE);
                 llInsideAirFresh.setVisibility(View.INVISIBLE);
                 //心形右侧打钩项每隔一秒显示一行
@@ -221,17 +235,28 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
                 tvOpenInsideCamera.setVisibility(View.VISIBLE);
                 tvInformMaster.setVisibility(View.VISIBLE);
                 tvSendInsidePhoto.setVisibility(View.VISIBLE);
-
                 tvVitalSigns.setText(getString(R.string.monitor_vital_signs_7));
             } else if (level == 7) {
+                llAiRobot.setVisibility(View.INVISIBLE);
                 tvVitalSigns.setText(getString(R.string.monitor_vital_signs_8));
+
+                ivInformMaster.setVisibility(View.INVISIBLE);
+                ivSendInsidePhoto.setVisibility(View.INVISIBLE);
+                ivOpenInsideCamera.setVisibility(View.INVISIBLE);
+                ivOpenVentilationSystem.setVisibility(View.INVISIBLE);
             } else {
+                llAiRobot.setVisibility(View.INVISIBLE);
                 llInsideAirFresh.setVisibility(View.VISIBLE);
                 tvOpenVentilationSystem.setVisibility(View.INVISIBLE);
                 tvOpenInsideCamera.setVisibility(View.INVISIBLE);
                 tvInformMaster.setVisibility(View.INVISIBLE);
                 tvSendInsidePhoto.setVisibility(View.INVISIBLE);
                 tvVitalSigns.setText("");
+
+                ivInformMaster.setVisibility(View.INVISIBLE);
+                ivSendInsidePhoto.setVisibility(View.INVISIBLE);
+                ivOpenInsideCamera.setVisibility(View.INVISIBLE);
+                ivOpenVentilationSystem.setVisibility(View.INVISIBLE);
             }
         }
     }
@@ -239,9 +264,14 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
     @Override
     public void updateMonitorAction(boolean informMaster, boolean sendInsidePhoto, boolean openInsideCamera, boolean openVenSystem) {
         Log.d(TAG, "updateMonitorAction -> " + informMaster + "*" + sendInsidePhoto + "*" + openInsideCamera + "*" + openVenSystem);
-        ivInformMaster.setVisibility(informMaster ? View.VISIBLE : View.INVISIBLE);
-        ivSendInsidePhoto.setVisibility(sendInsidePhoto ? View.VISIBLE : View.INVISIBLE);
-        ivOpenInsideCamera.setVisibility(openInsideCamera ? View.VISIBLE : View.INVISIBLE);
-        ivOpenVentilationSystem.setVisibility(openVenSystem ? View.VISIBLE : View.INVISIBLE);
+        int carbonDioxideLevel = mStatusManager.getCarbonDioxideLevel();
+        Log.d(TAG, "updateMonitorAction carbonDioxideLevel -> " + carbonDioxideLevel);
+        if (carbonDioxideLevel >= 8) {
+            ivInformMaster.setVisibility(informMaster ? View.VISIBLE : View.INVISIBLE);
+            ivSendInsidePhoto.setVisibility(sendInsidePhoto ? View.VISIBLE : View.INVISIBLE);
+            ivOpenInsideCamera.setVisibility(openInsideCamera ? View.VISIBLE : View.INVISIBLE);
+            ivOpenVentilationSystem.setVisibility(openVenSystem ? View.VISIBLE : View.INVISIBLE);
+        }
     }
+
 }

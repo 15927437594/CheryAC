@@ -79,6 +79,14 @@
             android:layout_height="wrap_content"
             android:src="@drawable/icon_car_model" />
 
+        <ImageView
+            android:id="@+id/iv_fog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/widget_size_160"
+            android:layout_marginTop="@dimen/widget_size_10"
+            android:src="@drawable/icon_fog" />
+
         <TextView
             android:id="@+id/tv_mist_tip"
             android:layout_width="wrap_content"

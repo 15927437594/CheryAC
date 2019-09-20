@@ -182,6 +182,8 @@
             android:id="@+id/ll_ai_robot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_send_inside_photo"
+            android:layout_marginStart="@dimen/widget_size_25"
             android:layout_marginTop="@dimen/widget_size_5"
             android:orientation="horizontal"
             android:visibility="invisible">
