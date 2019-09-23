@@ -7,7 +7,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import cn.com.hwtc.cheryac.R;
@@ -33,13 +32,8 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
     private TextView tvOpenInsideCamera;
     private TextView tvInformMaster;
     private TextView tvSendInsidePhoto;
-    private LinearLayout llVentilationSystem;
-    private LinearLayout llOpenInsideCamera;
-    private LinearLayout llInformMaster;
-    private LinearLayout llSendInsidePhoto;
     private LinearLayout llInsideAirFresh;
     private LinearLayout llAiRobot;
-    private RelativeLayout rlVitalSignsTips;
 
     @Override
     protected int createLayout(Bundle saveInstanceState) {
@@ -60,13 +54,8 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
         tvOpenInsideCamera = findViewById(R.id.tv_open_inside_camera);
         tvInformMaster = findViewById(R.id.tv_inform_master);
         tvSendInsidePhoto = findViewById(R.id.tv_send_inside_photo);
-        llVentilationSystem = findViewById(R.id.ll_ventilation_system);
-        llOpenInsideCamera = findViewById(R.id.ll_open_inside_camera);
-        llInformMaster = findViewById(R.id.ll_inform_master);
-        llSendInsidePhoto = findViewById(R.id.ll_send_inside_photo);
         llInsideAirFresh = findViewById(R.id.ll_inside_air_fresh);
         llAiRobot = findViewById(R.id.ll_ai_robot);
-        rlVitalSignsTips = findViewById(R.id.rl_vital_signs_tips);
     }
 
     @Override
@@ -74,7 +63,9 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
         ivHome.setOnClickListener(this);
         cbSwitchAutomaticMonitor.setOnCheckedChangeListener(this);
         mStatusManager.setOnUpdateVitalSignsCallback(this);
-        mHandler.postDelayed(mAiRobotRunnable, 1000L); //以1s的频率红色字闪烁
+        if (mHandler != null) {
+            mHandler.postDelayed(mAiRobotRunnable, 1000L); //以1s的频率红色字闪烁
+        }
     }
 
     @Override
@@ -87,24 +78,16 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.iv_home:
-                mStatusManager.onBack();
-                break;
-            default:
-                break;
+        if (view.getId() == R.id.iv_home) {
+            mStatusManager.onBack();
         }
     }
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        switch (compoundButton.getId()) {
-            case R.id.cb_switch_automatic_monitor:
-                mStatusManager.setCarbonDioxideAutoMonitorSwitch(b ? 1 : 0);
-                mStatusManager.sendInfo(mContext);
-                break;
-            default:
-                break;
+        if (compoundButton.getId() == R.id.cb_switch_automatic_monitor) {
+            mStatusManager.setCarbonDioxideAutoMonitorSwitch(b ? 1 : 0);
+            mStatusManager.sendInfo(mContext);
         }
     }
 
@@ -112,7 +95,10 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
         @Override
         public void run() {
             Log.d(TAG, "call mAiRobotRunnable");
-            mHandler.postDelayed(this, 500L);
+            if (mHandler != null) {
+                mHandler.postDelayed(this, 500L);
+            }
+
             if (mStatusManager.getCarbonDioxideLevel() >= 38) {
                 if (llAiRobot.getVisibility() == View.VISIBLE) {
                     llAiRobot.setVisibility(View.INVISIBLE);

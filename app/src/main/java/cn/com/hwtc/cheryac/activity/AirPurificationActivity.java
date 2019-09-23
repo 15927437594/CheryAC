@@ -86,19 +86,15 @@ public class AirPurificationActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        switch (compoundButton.getId()) {
-            case R.id.cb_switch_automatic_purification:
-                Log.d(TAG, "onCheckedChanged cb_switch_automatic_purification -> " + b);
-                mStatusManager.setAutoPurificationSwitch(b ? 1 : 0);
-                if (b) {
-                    //开启自动净化时默认关闭手动净化
-                    mStatusManager.setManualPurificationSwitch(0);
-                }
-                mStatusManager.sendInfo(mContext);
-                llManualPurification.setEnabled(!b);
-                break;
-            default:
-                break;
+        if (compoundButton.getId() == R.id.cb_switch_automatic_purification) {
+            Log.d(TAG, "onCheckedChanged cb_switch_automatic_purification -> " + b);
+            mStatusManager.setAutoPurificationSwitch(b ? 1 : 0);
+            if (b) {
+                //开启自动净化时默认关闭手动净化
+                mStatusManager.setManualPurificationSwitch(0);
+            }
+            mStatusManager.sendInfo(mContext);
+            llManualPurification.setEnabled(!b);
         }
     }
 

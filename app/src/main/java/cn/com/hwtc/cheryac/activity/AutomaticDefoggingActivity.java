@@ -72,12 +72,8 @@ public class AutomaticDefoggingActivity extends BaseActivity implements View.OnC
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.iv_home:
-                mStatusManager.onBack();
-                break;
-            default:
-                break;
+        if (view.getId() == R.id.iv_home) {
+            mStatusManager.onBack();
         }
     }
 
@@ -116,32 +112,28 @@ public class AutomaticDefoggingActivity extends BaseActivity implements View.OnC
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        switch (compoundButton.getId()) {
-            case R.id.cb_switch_automatic_defog:
-                Log.d(TAG, "onCheckedChanged -> " + mStatusManager.getAutoMistSwitch());
-                mStatusManager.setAutoMistSwitch(b ? 1 : 0);
-                // TODO: 2019/9/16 添加透明动画
-                //开启:逐步淡化和扩散雾气画面,汽车图层上叠加一层不透明度为0的汽车图像,逐渐将不透明度调整为100%
-                //关闭:静态显示雾气在汽车玻璃上的画面
-                if (b) {
-                    AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 0.0f); //第一个参数开始的透明度，第二个参数结束的透明度
-                    alphaAnimation.setDuration(2000L); //完成这个动作所需时间
-                    alphaAnimation.setFillAfter(true); //动画执行完毕后是否停在结束时的透明度上
-                    ivFog.startAnimation(alphaAnimation);
+        if (compoundButton.getId() == R.id.cb_switch_automatic_defog) {
+            Log.d(TAG, "onCheckedChanged -> " + mStatusManager.getAutoMistSwitch());
+            mStatusManager.setAutoMistSwitch(b ? 1 : 0);
+            // TODO: 2019/9/16 添加透明动画
+            //开启:逐步淡化和扩散雾气画面,汽车图层上叠加一层不透明度为0的汽车图像,逐渐将不透明度调整为100%
+            //关闭:静态显示雾气在汽车玻璃上的画面
+            if (b) {
+                AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 0.0f); //第一个参数开始的透明度，第二个参数结束的透明度
+                alphaAnimation.setDuration(2000L); //完成这个动作所需时间
+                alphaAnimation.setFillAfter(true); //动画执行完毕后是否停在结束时的透明度上
+                ivFog.startAnimation(alphaAnimation);
 
-                    rlDefogOk.setVisibility(View.INVISIBLE);
-                } else {
-                    AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 1.0f); //第一个参数开始的透明度，第二个参数结束的透明度
-                    alphaAnimation.setDuration(100L);
-                    alphaAnimation.setFillAfter(true);
-                    ivFog.startAnimation(alphaAnimation);
+                rlDefogOk.setVisibility(View.INVISIBLE);
+            } else {
+                AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 1.0f); //第一个参数开始的透明度，第二个参数结束的透明度
+                alphaAnimation.setDuration(100L);
+                alphaAnimation.setFillAfter(true);
+                ivFog.startAnimation(alphaAnimation);
 
-                    rlDefogOk.setVisibility(View.INVISIBLE);
-                }
-                mStatusManager.sendInfo(mContext);
-                break;
-            default:
-                break;
+                rlDefogOk.setVisibility(View.INVISIBLE);
+            }
+            mStatusManager.sendInfo(mContext);
         }
     }
 }
