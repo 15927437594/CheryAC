@@ -83,7 +83,9 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
         tvFragranceConcentrationMiddle.setOnClickListener(this);
         tvFragranceConcentrationLow.setOnClickListener(this);
         ivFragranceConcentration.setOnClickListener(this);
-        mHandler.postDelayed(mChangeConcentrationRunnable, 1000L);
+        if (mHandler != null) {
+            mHandler.postDelayed(mChangeConcentrationRunnable, 1000L);
+        }
     }
 
     @Override
@@ -170,7 +172,9 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
         @Override
         public void run() {
             Log.d(TAG, "call mChangeConcentrationRunnable");
-            mHandler.postDelayed(this, 1000L);
+            if (mHandler != null) {
+                mHandler.postDelayed(this, 1000L);
+            }
 
             if (mStatusManager.getAutoControlPurification()) {
                 if (mStatusManager.getFragranceConcentration() == 0) {
@@ -294,15 +298,16 @@ public class SmartFragranceActivity extends BaseActivity implements View.OnClick
                 //香氛开启:花朵从10%的大小开始逐渐放大至100%后,在80%~100%持续循环;放大过程中,同步旋转,旋转角速度15度/秒,旋转持续
                 //香氛结束:静态显示
                 if (b) {
-//                    ScaleAnimation scaleAnimation = new ScaleAnimation(0.1f, 1.0f, 0.1f, 1.0f);
-//                    scaleAnimation.setDuration(1000L);
-//                    ivPerfumeBottlePetals.startAnimation(scaleAnimation);
                     Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.scale_animation);
                     ivPerfumeBottlePetals.startAnimation(animation);
-                    mHandler.postDelayed(mAnimationRunnable, 1000L);
+                    if (mHandler != null) {
+                        mHandler.postDelayed(mAnimationRunnable, 1000L);
+                    }
                 } else {
                     ivPerfumeBottlePetals.clearAnimation();
-                    mHandler.removeCallbacks(mAnimationRunnable);
+                    if (mHandler != null) {
+                        mHandler.removeCallbacks(mAnimationRunnable);
+                    }
                 }
                 break;
             case R.id.rb_perfume_bottle_first:
