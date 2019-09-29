@@ -1,5 +1,6 @@
 package cn.com.hwtc.cheryac.activity;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,7 +10,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import cn.com.hwtc.cheryac.R;
+import cn.com.hwtc.cheryac.animation.FrameSurfaceView;
 import cn.com.hwtc.cheryac.manager.StatusManager;
 
 /**
@@ -34,6 +38,9 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
     private TextView tvSendInsidePhoto;
     private LinearLayout llInsideAirFresh;
     private LinearLayout llAiRobot;
+    private ImageView ivElectrocardiogram;
+    private AnimationDrawable animationDrawable;
+    private FrameSurfaceView mFrameSurfaceView;
 
     @Override
     protected int createLayout(Bundle saveInstanceState) {
@@ -56,6 +63,9 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
         tvSendInsidePhoto = findViewById(R.id.tv_send_inside_photo);
         llInsideAirFresh = findViewById(R.id.ll_inside_air_fresh);
         llAiRobot = findViewById(R.id.ll_ai_robot);
+        mFrameSurfaceView = findViewById(R.id.iv_electrocardiogram);
+//        animationDrawable = (AnimationDrawable) getResources().getDrawable(R.drawable.vital_signs_animation);
+        initVisualizer();
     }
 
     @Override
@@ -74,6 +84,7 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
         Log.d(TAG, "onResume()");
         cbSwitchAutomaticMonitor.setChecked(mStatusManager.getCarbonDioxideAutoMonitorSwitch() == 1);
         updateCarbonDioxide(mStatusManager.getRiseState(), mStatusManager.getCarbonDioxideLevel());
+//        animationDrawable = (AnimationDrawable) getResources().getDrawable(R.drawable.vital_signs_animation);
     }
 
     @Override
@@ -86,15 +97,17 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         if (compoundButton.getId() == R.id.cb_switch_automatic_monitor) {
+            Log.d(TAG, "onCheckedChanged -> " + b);
             mStatusManager.setCarbonDioxideAutoMonitorSwitch(b ? 1 : 0);
             mStatusManager.sendInfo(mContext);
+            mFrameSurfaceView.setStart(!b);
         }
     }
 
     private Runnable mAiRobotRunnable = new Runnable() {
         @Override
         public void run() {
-            Log.d(TAG, "call mAiRobotRunnable");
+//            Log.d(TAG, "call mAiRobotRunnable");
             if (mHandler != null) {
                 mHandler.postDelayed(this, 500L);
             }
@@ -257,6 +270,23 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
             ivSendInsidePhoto.setVisibility(sendInsidePhoto ? View.VISIBLE : View.INVISIBLE);
             ivOpenInsideCamera.setVisibility(openInsideCamera ? View.VISIBLE : View.INVISIBLE);
             ivOpenVentilationSystem.setVisibility(openVenSystem ? View.VISIBLE : View.INVISIBLE);
+        }
+    }
+
+    private void initVisualizer() {
+        if (!mFrameSurfaceView.isInit()) {
+            mFrameSurfaceView.setOnDrawnFrameChange(new FrameSurfaceView.OnDrawnFrameChange() {
+                @Override
+                public void onDrawnIndex(int index) {
+                    Log.d(TAG, "onDrawnIndex -> " + index);
+                }
+            });
+
+            mFrameSurfaceView.setBitmapIds(0);
+            mFrameSurfaceView.setDuration(4000);
+            mFrameSurfaceView.setRepeatTimes(FrameSurfaceView.INFINITE);
+            mFrameSurfaceView.start();
+            mFrameSurfaceView.setStart(true);
         }
     }
 

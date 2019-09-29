@@ -18,15 +18,19 @@
         android:id="@+id/rl_electrocardiogram"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/widget_size_30">
+        android:layout_centerHorizontal="true">
 
-        <ImageView
+<!--        <ImageView-->
+<!--            android:src="@drawable/icon_electrocardiogram"-->
+<!--            android:id="@+id/iv_electrocardiogram"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerHorizontal="true" />-->
+
+        <cn.com.hwtc.cheryac.animation.FrameSurfaceView
             android:id="@+id/iv_electrocardiogram"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/icon_electrocardiogram" />
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/tv_vital_signs"
