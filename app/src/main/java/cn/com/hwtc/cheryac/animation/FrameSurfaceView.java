@@ -187,7 +187,7 @@ public class FrameSurfaceView extends BaseSurfaceView {
      */
     private void preloadFrames() {
         putDecodedBitmap(bitmapIds.get(bitmapIdIndex++), options, new LinkedBitmap());
-        putDecodedBitmap(bitmapIds.get(bitmapIdIndex++), options, new LinkedBitmap());
+//        putDecodedBitmap(bitmapIds.get(bitmapIdIndex++), options, new LinkedBitmap());
     }
 
     /**
@@ -227,11 +227,13 @@ public class FrameSurfaceView extends BaseSurfaceView {
     }
 
     private void drawFrame(Canvas canvas, boolean isDrawNew) {
-        clearCanvas(canvas);
+//        clearCanvas(canvas);
         if (!isStart()) {
             return;
         }
         if (!isFinish()) {
+            clearCanvas(canvas);
+
             if (isDrawNew) {
                 drawNewFrame(canvas);
             } else {

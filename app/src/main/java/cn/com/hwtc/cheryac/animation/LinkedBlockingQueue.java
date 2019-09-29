@@ -1,10 +1,13 @@
 package cn.com.hwtc.cheryac.animation;
 
+import android.util.Log;
+
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class LinkedBlockingQueue {
+    private static final String TAG = LinkedBlockingQueue.class.getSimpleName();
     /**
      * Current number of elements
      */
@@ -103,11 +106,12 @@ public class LinkedBlockingQueue {
 
     public LinkedBitmap take() throws InterruptedException {
         LinkedBitmap x;
-        int c = -1;
+        int c;
         final AtomicInteger count = this.count;
         final ReentrantLock takeLock = this.takeLock;
         takeLock.lockInterruptibly();
         try {
+            Log.d(TAG, "take dequeue -> " + count.get());
             while (count.get() == 0) {
                 notEmpty.await();
             }
@@ -120,6 +124,7 @@ public class LinkedBlockingQueue {
         }
         if (c == capacity)
             signalNotFull();
+        Log.d(TAG, "take -> " + x);
         return x;
     }
 
@@ -151,6 +156,7 @@ public class LinkedBlockingQueue {
         } else {
             head = head.next;
         }
+        Log.d(TAG, "dequeue -> " + p);
         return p;
     }
 

@@ -39,17 +39,17 @@ public class VisualizerUtil {
             R.drawable.auto_defog_00045, R.drawable.auto_defog_00046, R.drawable.auto_defog_00047, R.drawable.auto_defog_00048, R.drawable.auto_defog_00049);
 
     private List<Integer> airPurificationBitmaps = Arrays.asList(
-            R.drawable.air_purification_00000, R.drawable.air_purification_00001, R.drawable.air_purification_00002, R.drawable.air_purification_00003,
-            R.drawable.air_purification_00004, R.drawable.air_purification_00005, R.drawable.air_purification_00006, R.drawable.air_purification_00007,
+            R.drawable.air_purification_00000, R.drawable.air_purification_00001, R.drawable.air_purification_00003,
+            R.drawable.air_purification_00004, R.drawable.air_purification_00006, R.drawable.air_purification_00007,
             R.drawable.air_purification_00008, R.drawable.air_purification_00009, R.drawable.air_purification_00010, R.drawable.air_purification_00011,
             R.drawable.air_purification_00012, R.drawable.air_purification_00013, R.drawable.air_purification_00014, R.drawable.air_purification_00015,
             R.drawable.air_purification_00016, R.drawable.air_purification_00017, R.drawable.air_purification_00018, R.drawable.air_purification_00019,
             R.drawable.air_purification_00020, R.drawable.air_purification_00021, R.drawable.air_purification_00022, R.drawable.air_purification_00023,
             R.drawable.air_purification_00024, R.drawable.air_purification_00025, R.drawable.air_purification_00026, R.drawable.air_purification_00027,
             R.drawable.air_purification_00028, R.drawable.air_purification_00029, R.drawable.air_purification_00030, R.drawable.air_purification_00031,
-            R.drawable.air_purification_00032, R.drawable.air_purification_00033, R.drawable.air_purification_00034, R.drawable.air_purification_00035,
-            R.drawable.air_purification_00036, R.drawable.air_purification_00037, R.drawable.air_purification_00038, R.drawable.air_purification_00039,
-            R.drawable.air_purification_00040, R.drawable.air_purification_00041, R.drawable.air_purification_00042, R.drawable.air_purification_00043,
+            R.drawable.air_purification_00032, R.drawable.air_purification_00033, R.drawable.air_purification_00035,
+            R.drawable.air_purification_00036, R.drawable.air_purification_00037, R.drawable.air_purification_00038,
+            R.drawable.air_purification_00040, R.drawable.air_purification_00041, R.drawable.air_purification_00043,
             R.drawable.air_purification_00044, R.drawable.air_purification_00045, R.drawable.air_purification_00046, R.drawable.air_purification_00047,
             R.drawable.air_purification_00048, R.drawable.air_purification_00049);
 
