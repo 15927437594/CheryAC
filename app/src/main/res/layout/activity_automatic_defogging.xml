@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_automatic_defogging">
+    android:layout_height="match_parent">
 
+    <cn.com.hwtc.cheryac.animation.FrameSurfaceView
+        android:id="@+id/fs_auto_defog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <ImageView
         android:id="@+id/iv_home"
@@ -70,28 +73,12 @@
         android:id="@+id/rl_automatic_defog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/widget_size_80">
-
-        <ImageView
-            android:id="@+id/iv_car_model"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_car_model" />
-
-        <ImageView
-            android:id="@+id/iv_fog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/widget_size_160"
-            android:layout_marginTop="@dimen/widget_size_10"
-            android:src="@drawable/icon_fog" />
+        android:layout_centerHorizontal="true">
 
         <TextView
             android:id="@+id/tv_mist_tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/iv_car_model"
             android:layout_centerHorizontal="true"
             android:text="@string/start_automatic_defog"
             android:textColor="@android:color/white"

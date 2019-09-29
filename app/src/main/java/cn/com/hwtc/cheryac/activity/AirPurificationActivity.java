@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import cn.com.hwtc.cheryac.R;
+import cn.com.hwtc.cheryac.animation.FrameSurfaceView;
 import cn.com.hwtc.cheryac.manager.StatusManager;
 
 /**
@@ -29,6 +30,7 @@ public class AirPurificationActivity extends BaseActivity implements View.OnClic
     private TextView tvAirQuality;
     private TextView tvPollutionDegree;
     private ProgressBar pbPurificationPercent;
+    private FrameSurfaceView mFrameSurfaceView;
 
     @Override
     protected int createLayout(Bundle saveInstanceState) {
@@ -45,6 +47,8 @@ public class AirPurificationActivity extends BaseActivity implements View.OnClic
         tvAirQuality = findViewById(R.id.tv_air_quality);
         tvPollutionDegree = findViewById(R.id.tv_pollution_degree);
         pbPurificationPercent = findViewById(R.id.pb_purification_percent);
+        mFrameSurfaceView = findViewById(R.id.fs_air_purification);
+        initVisualizer();
     }
 
     @Override
@@ -95,6 +99,7 @@ public class AirPurificationActivity extends BaseActivity implements View.OnClic
             }
             mStatusManager.sendInfo(mContext);
             llManualPurification.setEnabled(!b);
+            mFrameSurfaceView.setStart(!b);
         }
     }
 
@@ -115,4 +120,23 @@ public class AirPurificationActivity extends BaseActivity implements View.OnClic
         tvAirQuality.setText(mStatusManager.getPollutionDegree(mContext, insidePm25));
         tvPollutionDegree.setText(mStatusManager.getPollutionDegree(mContext, outsidePm25));
     }
+
+    private void initVisualizer() {
+        if (!mFrameSurfaceView.isInit()) {
+            mFrameSurfaceView.setOnDrawnFrameChange(new FrameSurfaceView.OnDrawnFrameChange() {
+                @Override
+                public void onDrawnIndex(int index) {
+                    Log.d(TAG, "onDrawnIndex -> " + index);
+                }
+            });
+
+            mFrameSurfaceView.setBitmapIds(0);
+            mFrameSurfaceView.setDuration(6000);
+            mFrameSurfaceView.setRepeatTimes(FrameSurfaceView.INFINITE);
+            mFrameSurfaceView.start();
+            mFrameSurfaceView.setStart(true);
+            mFrameSurfaceView.setZOrderMediaOverlay(true);
+        }
+    }
+
 }

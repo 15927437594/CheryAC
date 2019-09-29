@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.Locale;
 
 import cn.com.hwtc.cheryac.R;
+import cn.com.hwtc.cheryac.animation.FrameSurfaceView;
 import cn.com.hwtc.cheryac.manager.StatusManager;
 
 /**
@@ -29,6 +30,7 @@ public class AutomaticDefoggingActivity extends BaseActivity implements View.OnC
     private RelativeLayout rlDefogOk;
     private TextView tvMistTip;
     private ImageView ivFog;
+    private FrameSurfaceView mFrameSurfaceView;
 
     @Override
     protected int createLayout(Bundle saveInstanceState) {
@@ -42,7 +44,9 @@ public class AutomaticDefoggingActivity extends BaseActivity implements View.OnC
         tvFogProbability = findViewById(R.id.tv_fog_probability);
         rlDefogOk = findViewById(R.id.rl_defog_ok);
         tvMistTip = findViewById(R.id.tv_mist_tip);
-        ivFog = findViewById(R.id.iv_fog);
+//        ivFog = findViewById(R.id.iv_fog);
+        mFrameSurfaceView = findViewById(R.id.fs_auto_defog);
+        initVisualizer();
     }
 
     @Override
@@ -57,17 +61,15 @@ public class AutomaticDefoggingActivity extends BaseActivity implements View.OnC
         super.onResume();
         Log.d(TAG, "onResume()");
         cbSwitchAutomaticDefog.setChecked(mStatusManager.getAutoMistSwitch() == 1);
-        if (cbSwitchAutomaticDefog.isChecked()) {
-            AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 0.0f);
-            alphaAnimation.setDuration(100L);
-            alphaAnimation.setFillAfter(true);
-            ivFog.startAnimation(alphaAnimation);
-        }
+//        if (cbSwitchAutomaticDefog.isChecked()) {
+//            AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 0.0f);
+//            alphaAnimation.setDuration(100L);
+//            alphaAnimation.setFillAfter(true);
+//            ivFog.startAnimation(alphaAnimation);
+//        }
 
         updateFogProbability(mStatusManager.getFogProbability());
         updateCurrentHumidity(mStatusManager.getHumidUpState(), mStatusManager.getHumidSensor());
-
-
     }
 
     @Override
@@ -119,21 +121,42 @@ public class AutomaticDefoggingActivity extends BaseActivity implements View.OnC
             //开启:逐步淡化和扩散雾气画面,汽车图层上叠加一层不透明度为0的汽车图像,逐渐将不透明度调整为100%
             //关闭:静态显示雾气在汽车玻璃上的画面
             if (b) {
-                AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 0.0f); //第一个参数开始的透明度，第二个参数结束的透明度
-                alphaAnimation.setDuration(2000L); //完成这个动作所需时间
-                alphaAnimation.setFillAfter(true); //动画执行完毕后是否停在结束时的透明度上
-                ivFog.startAnimation(alphaAnimation);
+//                AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 0.0f); //第一个参数开始的透明度，第二个参数结束的透明度
+//                alphaAnimation.setDuration(2000L); //完成这个动作所需时间
+//                alphaAnimation.setFillAfter(true); //动画执行完毕后是否停在结束时的透明度上
+//                ivFog.startAnimation(alphaAnimation);
 
                 rlDefogOk.setVisibility(View.INVISIBLE);
             } else {
-                AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 1.0f); //第一个参数开始的透明度，第二个参数结束的透明度
-                alphaAnimation.setDuration(100L);
-                alphaAnimation.setFillAfter(true);
-                ivFog.startAnimation(alphaAnimation);
+//                AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 1.0f); //第一个参数开始的透明度，第二个参数结束的透明度
+//                alphaAnimation.setDuration(100L);
+//                alphaAnimation.setFillAfter(true);
+//                ivFog.startAnimation(alphaAnimation);
 
                 rlDefogOk.setVisibility(View.INVISIBLE);
             }
             mStatusManager.sendInfo(mContext);
+            mFrameSurfaceView.setStart(!b);
         }
     }
+
+    //初始化
+    private void initVisualizer() {
+        if (!mFrameSurfaceView.isInit()) {
+            mFrameSurfaceView.setOnDrawnFrameChange(new FrameSurfaceView.OnDrawnFrameChange() {
+                @Override
+                public void onDrawnIndex(int index) {
+                    Log.d(TAG, "onDrawnIndex -> " + index);
+                }
+            });
+
+            mFrameSurfaceView.setBitmapIds(0);
+            mFrameSurfaceView.setDuration(6000);
+            mFrameSurfaceView.setRepeatTimes(FrameSurfaceView.INFINITE);
+            mFrameSurfaceView.start();
+            mFrameSurfaceView.setStart(true);
+            mFrameSurfaceView.setZOrderMediaOverlay(true);
+        }
+    }
+
 }
