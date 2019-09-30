@@ -126,7 +126,7 @@ public class AirPurificationActivity extends BaseActivity implements View.OnClic
             mFrameSurfaceView.setOnDrawnFrameChange(new FrameSurfaceView.OnDrawnFrameChange() {
                 @Override
                 public void onDrawnIndex(int index) {
-                    Log.d(TAG, "onDrawnIndex -> " + index);
+
                 }
             });
 

@@ -70,12 +70,14 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:layout_centerHorizontal="true"
         android:id="@+id/rl_automatic_defog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
+        android:layout_alignParentBottom="true">
 
         <TextView
+            android:layout_marginBottom="@dimen/widget_size_30"
             android:id="@+id/tv_mist_tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -87,12 +89,12 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:layout_marginEnd="@dimen/widget_size_50"
         android:id="@+id/rl_defog_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/widget_size_120"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/widget_size_150"
-        android:layout_toEndOf="@+id/rl_automatic_defog"
         android:visibility="invisible">
 
         <ImageView
