@@ -61,7 +61,7 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
         tvSendInsidePhoto = findViewById(R.id.tv_send_inside_photo);
         llInsideAirFresh = findViewById(R.id.ll_inside_air_fresh);
         llAiRobot = findViewById(R.id.ll_ai_robot);
-        mFrameSurfaceView = findViewById(R.id.iv_electrocardiogram);
+        mFrameSurfaceView = findViewById(R.id.fs_electrocardiogram);
         initVisualizer();
     }
 
