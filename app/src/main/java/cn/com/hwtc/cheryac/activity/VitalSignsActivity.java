@@ -38,8 +38,6 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
     private TextView tvSendInsidePhoto;
     private LinearLayout llInsideAirFresh;
     private LinearLayout llAiRobot;
-    private ImageView ivElectrocardiogram;
-    private AnimationDrawable animationDrawable;
     private FrameSurfaceView mFrameSurfaceView;
 
     @Override
@@ -63,8 +61,7 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
         tvSendInsidePhoto = findViewById(R.id.tv_send_inside_photo);
         llInsideAirFresh = findViewById(R.id.ll_inside_air_fresh);
         llAiRobot = findViewById(R.id.ll_ai_robot);
-        mFrameSurfaceView = findViewById(R.id.iv_electrocardiogram);
-//        animationDrawable = (AnimationDrawable) getResources().getDrawable(R.drawable.vital_signs_animation);
+        mFrameSurfaceView = findViewById(R.id.fs_electrocardiogram);
         initVisualizer();
     }
 
@@ -84,7 +81,6 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
         Log.d(TAG, "onResume()");
         cbSwitchAutomaticMonitor.setChecked(mStatusManager.getCarbonDioxideAutoMonitorSwitch() == 1);
         updateCarbonDioxide(mStatusManager.getRiseState(), mStatusManager.getCarbonDioxideLevel());
-//        animationDrawable = (AnimationDrawable) getResources().getDrawable(R.drawable.vital_signs_animation);
     }
 
     @Override
@@ -278,7 +274,7 @@ public class VitalSignsActivity extends BaseActivity implements View.OnClickList
             mFrameSurfaceView.setOnDrawnFrameChange(new FrameSurfaceView.OnDrawnFrameChange() {
                 @Override
                 public void onDrawnIndex(int index) {
-                    Log.d(TAG, "onDrawnIndex -> " + index);
+
                 }
             });
 

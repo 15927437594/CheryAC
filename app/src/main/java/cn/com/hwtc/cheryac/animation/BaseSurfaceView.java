@@ -22,9 +22,10 @@ public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHold
     protected int frameDuration = DEFAULT_FRAME_DURATION_MILLISECOND;
     private Canvas canvas;
     private boolean isAlive;
-    protected  boolean isVisible = true;
+    protected boolean isVisible = true;
     protected boolean isStart = false;
     protected boolean isStopEnd = false;
+
     public BaseSurfaceView(Context context) {
         super(context);
         init();
@@ -56,13 +57,11 @@ public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHold
     private void setBackgroundTransparent() {
         getHolder().setFormat(PixelFormat.TRANSLUCENT);
         setZOrderOnTop(true);
-        //是否允许其他控件覆盖在SurfaceView之上
-//        setZOrderMediaOverlay(true);
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-       startDrawThread();
+        startDrawThread();
         isAlive = true;
     }
 
@@ -76,14 +75,9 @@ public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHold
         synchronized (this) {
             isAlive = false;
             stopDrawThread();
-
-           /* isLastStop = isStart ;
-            isStart = false;
-           isStopEnd = false ;*/
-          if(isStart){
-              isStopEnd = false ;
-           }
-
+            if (isStart) {
+                isStopEnd = false;
+            }
         }
     }
 
@@ -98,12 +92,6 @@ public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHold
         handlerThread.start();
         handler = new SurfaceViewHandler(handlerThread.getLooper());
         handler.sendEmptyMessage(MSG_DRAW_NEW);
-       /* if (isStart) {
-            handler.sendEmptyMessage(MSG_DRAW_RESTORE);
-        }else {
-            handler.sendEmptyMessage(MSG_DRAW_NEW);
-        }*/
-
     }
 
 
@@ -117,7 +105,6 @@ public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHold
         int width = widthMode == MeasureSpec.AT_MOST ? getDefaultWidth() : originWidth;
         int height = heightMode == MeasureSpec.AT_MOST ? getDefaultHeight() : originHeight;
         setMeasuredDimension(width, height);
-        Log.v("ttaylor", "BaseSurfaceView.onMeasure()" + "  default Width=" + getDefaultWidth() + " default height=" + getDefaultHeight());
     }
 
     /**
@@ -155,8 +142,8 @@ public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHold
                 case MSG_DRAW_NEW:
                     post(new DrawRunnable());
                     break;
-                 default:
-                     break;
+                default:
+                    break;
 
             }
 
@@ -167,44 +154,44 @@ public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHold
         @Override
         public void run() {
             synchronized (this) {
-            if (!isAlive) {
-                return;
-            }
-            try {
-                if (isStart ) {
-                    if (!isStopEnd){
-                        canvas = getHolder().lockCanvas();
-                        onFrameDraw(canvas);
-                    }
-                }else{
-                    canvas = getHolder().lockCanvas();
-                    onFrameDraw(canvas);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if (getHolder() != null) {
-                    if (!isAlive) {
-                        return;
-                    }
-                    if (isStart) {
-                        if (!isStopEnd){
-                            getHolder().unlockCanvasAndPost(canvas);
-                            isStopEnd = true ;
-                        }
-                    }else{
-                        if(canvas!=null){
-                            getHolder().unlockCanvasAndPost(canvas);
-                        }
-                    }
-                    onFrameDrawFinish();
-                }
-            }
                 if (!isAlive) {
                     return;
                 }
-            handler.postDelayed(this, frameDuration);
-        }
+                try {
+                    if (isStart) {
+                        if (!isStopEnd) {
+                            canvas = getHolder().lockCanvas();
+                            onFrameDraw(canvas);
+                        }
+                    } else {
+                        canvas = getHolder().lockCanvas();
+                        onFrameDraw(canvas);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    if (getHolder() != null) {
+                        if (!isAlive) {
+                            return;
+                        }
+                        if (isStart) {
+                            if (!isStopEnd) {
+                                getHolder().unlockCanvasAndPost(canvas);
+                                isStopEnd = true;
+                            }
+                        } else {
+                            if (canvas != null) {
+                                getHolder().unlockCanvasAndPost(canvas);
+                            }
+                        }
+                        onFrameDrawFinish();
+                    }
+                }
+                if (!isAlive) {
+                    return;
+                }
+                handler.postDelayed(this, frameDuration);
+            }
         }
     }
 
@@ -220,6 +207,7 @@ public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHold
      */
     protected abstract void onFrameDraw(Canvas canvas);
 
-    protected void onRestoreFrameDraw(Canvas canvas){}
+    protected void onRestoreFrameDraw(Canvas canvas) {
+    }
 
 }

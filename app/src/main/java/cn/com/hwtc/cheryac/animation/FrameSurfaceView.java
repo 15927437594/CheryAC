@@ -261,11 +261,9 @@ public class FrameSurfaceView extends BaseSurfaceView {
      */
     private void drawNewFrame(Canvas canvas) {
         LinkedBitmap linkedBitmap = getDecodedBitmap();
-        Log.d(TAG, "drawNewFrame -> " + linkedBitmap);
         if (linkedBitmap != null) {
             canvas.drawBitmap(linkedBitmap.bitmap, srcRect, dstRect, paint);
             putDrawnBitmap(linkedBitmap);
-            Log.d(TAG, "drawNewFrame");
         }
         frameIndex++;
         if (mOnDrawnFrameChange != null) {

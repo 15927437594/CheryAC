@@ -146,7 +146,7 @@ public class AutomaticDefoggingActivity extends BaseActivity implements View.OnC
             mFrameSurfaceView.setOnDrawnFrameChange(new FrameSurfaceView.OnDrawnFrameChange() {
                 @Override
                 public void onDrawnIndex(int index) {
-                    Log.d(TAG, "onDrawnIndex -> " + index);
+
                 }
             });
 

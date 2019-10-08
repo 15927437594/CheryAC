@@ -111,7 +111,6 @@ public class LinkedBlockingQueue {
         final ReentrantLock takeLock = this.takeLock;
         takeLock.lockInterruptibly();
         try {
-            Log.d(TAG, "take dequeue -> " + count.get());
             while (count.get() == 0) {
                 notEmpty.await();
             }
@@ -124,7 +123,6 @@ public class LinkedBlockingQueue {
         }
         if (c == capacity)
             signalNotFull();
-        Log.d(TAG, "take -> " + x);
         return x;
     }
 
@@ -156,7 +154,6 @@ public class LinkedBlockingQueue {
         } else {
             head = head.next;
         }
-        Log.d(TAG, "dequeue -> " + p);
         return p;
     }
 
