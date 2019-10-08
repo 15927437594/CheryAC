@@ -105,10 +105,10 @@ public class StatusManager {
 //        }.start();
 
         //方式二模拟home键
-        Intent i = new Intent(Intent.ACTION_MAIN);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        i.addCategory(Intent.CATEGORY_HOME);
-        context.startActivity(i);
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        context.startActivity(intent);
     }
 
     public void startActivity(Context context, String packageName, String className) {
