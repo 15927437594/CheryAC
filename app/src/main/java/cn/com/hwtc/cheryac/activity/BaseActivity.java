@@ -71,15 +71,14 @@ public abstract class BaseActivity extends Activity {
     }
 
     protected void showNavigationBar(boolean show) {
+        WindowManager.LayoutParams attr = getWindow().getAttributes();
         if (show) {
-            WindowManager.LayoutParams attr = getWindow().getAttributes();
             attr.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
             getWindow().setAttributes(attr);
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         } else {
-            WindowManager.LayoutParams lp = getWindow().getAttributes();
-            lp.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
-            getWindow().setAttributes(lp);
+            attr.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+            getWindow().setAttributes(attr);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
     }

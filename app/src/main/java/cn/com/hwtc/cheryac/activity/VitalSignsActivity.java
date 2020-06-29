@@ -1,6 +1,5 @@
 package cn.com.hwtc.cheryac.activity;
 
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,8 +8,6 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import cn.com.hwtc.cheryac.R;
 import cn.com.hwtc.cheryac.animation.FrameSurfaceView;

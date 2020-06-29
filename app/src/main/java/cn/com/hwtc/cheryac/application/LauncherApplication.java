@@ -12,6 +12,7 @@ import cn.com.hwtc.cheryac.service.CheryControlService;
  * description:
  */
 public class LauncherApplication extends Application {
+
     private static final String TAG = LauncherApplication.class.getSimpleName();
 
     @Override
@@ -20,4 +21,5 @@ public class LauncherApplication extends Application {
         Log.d(TAG, "onCreate()");
         startService(new Intent(this, CheryControlService.class));
     }
+
 }
