@@ -27,7 +27,7 @@ public class MainActivity extends BaseActivity implements UltraPagerAdapter.OnPo
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate()");
+        Log.d(TAG, "onCreate");
         SystemPropertiesUtil.setProperty("sys.usb.role", "device"); //System property need system permission
     }
 
@@ -42,7 +42,6 @@ public class MainActivity extends BaseActivity implements UltraPagerAdapter.OnPo
         UltraPagerAdapter ultraPagerAdapter = new UltraPagerAdapter(mContext);
         ultraPagerAdapter.setOnPositionClickListener(this);
         ultraViewPager.setAdapter(ultraPagerAdapter);
-
         ultraViewPager.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL);
         ultraViewPager.setMultiScreen(0.5f);
         ultraViewPager.setItemRatio(1.0f);
@@ -88,8 +87,6 @@ public class MainActivity extends BaseActivity implements UltraPagerAdapter.OnPo
             panel = 3;
         }
         mStatusManager.setPanel(panel);
-
         mStatusManager.sendInfo(mContext);
     }
-
 }

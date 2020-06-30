@@ -14,13 +14,12 @@ import java.util.Arrays;
 import cn.com.hwtc.cheryac.R;
 
 /**
- * user: Created by jid on 2019/9/2.
+ * user: Created by jid on 2019/9/2
  * email: jid@hwtc.com.cn
  * description:状态管理模块
  */
 public class StatusManager {
     private static final String TAG = StatusManager.class.getSimpleName();
-    private static volatile StatusManager sInstance = null;
     private int pm25Ref = 40;
     private int pm25Warning = 0;
     private int pm25AutoCleanFdk = 0;
@@ -65,15 +64,12 @@ public class StatusManager {
     private StatusManager() {
     }
 
+    private static class WrapperInstance {
+        static StatusManager INSTANCE = new StatusManager();
+    }
+
     public static StatusManager getInstance() {
-        if (sInstance == null) {
-            synchronized (StatusManager.class) {
-                if (sInstance == null) {
-                    sInstance = new StatusManager();
-                }
-            }
-        }
-        return sInstance;
+        return WrapperInstance.INSTANCE;
     }
 
     public void onBack() {

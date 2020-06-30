@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import cn.com.hwtc.cheryac.manager.StatusManager;
 
 /**
- * user: Created by jid on 2019/9/2.
+ * user: Created by jid on 2019/9/2
  * email: jid@hwtc.com.cn
  * description:
  */
@@ -93,5 +93,4 @@ public abstract class BaseActivity extends Activity {
         intent.putExtra(HW_STATUSBAR_MODE_EXTRA, status);
         sendBroadcast(intent);
     }
-
 }

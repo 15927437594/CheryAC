@@ -53,20 +53,16 @@ public class VisualizerUtil {
             R.drawable.air_purification_00044, R.drawable.air_purification_00045, R.drawable.air_purification_00046, R.drawable.air_purification_00047,
             R.drawable.air_purification_00048, R.drawable.air_purification_00049);
 
-    private static VisualizerUtil instance;
 
     private VisualizerUtil() {
     }
 
+    private static class WrapperInstance {
+        static VisualizerUtil INSTANCE = new VisualizerUtil();
+    }
+
     public static VisualizerUtil getInstance() {
-        if (instance == null) {
-            synchronized (VisualizerUtil.class) {
-                if (instance == null) {
-                    instance = new VisualizerUtil();
-                }
-            }
-        }
-        return instance;
+        return WrapperInstance.INSTANCE;
     }
 
     public List<Integer> getBitmapIds() {

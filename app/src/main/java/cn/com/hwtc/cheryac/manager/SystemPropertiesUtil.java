@@ -6,8 +6,9 @@ import android.util.Log;
 import java.lang.reflect.Method;
 
 /**
- * @author yuanc
- * @date 2019/3/21
+ * user: Created by jid on 2019/9/2
+ * email: jid@hwtc.com.cn
+ * description:系统属性工具
  */
 public class SystemPropertiesUtil {
 

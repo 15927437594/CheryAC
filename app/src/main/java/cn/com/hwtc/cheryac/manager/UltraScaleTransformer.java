@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
 
 /**
- * user: Created by jid on 2019/9/3.
+ * user: Created by jid on 2019/9/3
  * email: jid@hwtc.com.cn
  * description:
  */
